@@ -24,7 +24,12 @@ namespace _20212C_TP.Controllers
             return View(_recetaServicio.obtenerRecetas());
         }
 
-        public IActionResult Privacy()
+        public IActionResult Ingresar()
+        {
+            return View();
+        }
+
+        public IActionResult Registrarse()
         {
             return View();
         }
