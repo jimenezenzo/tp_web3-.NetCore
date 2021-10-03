@@ -30,19 +30,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\enzo-\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\source\\pw3\\20212C-TP\\20212C-TP\\20212C-TP.csproj",
+      "projectUniqueName": "C:\\Users\\enzo-\\Source\\Repos\\tp_web3\\20212C-TP\\20212C-TP.csproj",
       "projectName": "20212C-TP",
-      "projectPath": "C:\\Users\\admin\\source\\pw3\\20212C-TP\\20212C-TP\\20212C-TP.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\source\\pw3\\20212C-TP\\20212C-TP\\obj\\",
+      "projectPath": "C:\\Users\\enzo-\\Source\\Repos\\tp_web3\\20212C-TP\\20212C-TP.csproj",
+      "packagesPath": "C:\\Users\\enzo-\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\enzo-\\Source\\Repos\\tp_web3\\20212C-TP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\enzo-\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -56,8 +56,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\admin\\source\\pw3\\20212C-TP\\Servicios\\Servicios.csproj": {
-              "projectPath": "C:\\Users\\admin\\source\\pw3\\20212C-TP\\Servicios\\Servicios.csproj"
+            "C:\\Users\\enzo-\\Source\\Repos\\tp_web3\\Servicios\\Servicios.csproj": {
+              "projectPath": "C:\\Users\\enzo-\\Source\\Repos\\tp_web3\\Servicios\\Servicios.csproj"
             }
           }
         }
@@ -89,7 +89,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
