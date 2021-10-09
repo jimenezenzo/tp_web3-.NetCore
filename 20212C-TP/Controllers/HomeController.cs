@@ -19,7 +19,7 @@ namespace _20212C_TP.Controllers
             _recetaServicio = new RecetaServicio();
         }
 
-        public IActionResult Index()
+        public IActionResult Inicio()
         {
             return View(_recetaServicio.obtenerRecetas());
         }
