@@ -18,6 +18,7 @@ namespace _20212C_TP.Controllers
         {
             _recetaServicio = recetaServicio;
         }
+
         public IActionResult Index()
         {
             var recetas = _recetaServicio.ObtenerRecetas();
