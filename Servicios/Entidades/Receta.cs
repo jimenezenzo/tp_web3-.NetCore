@@ -1,16 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace Servicios.Entidades
 {
-    public class Receta
+    public partial class Receta
     {
-        public int id { get; set; }
-        public int tiempoCoccion { get; set; }
-        public string descripcion { get; set; }
-        public List<Ingrediente> ingredientes { get; set; }
-        public TipoReceta tipoReceta { get; set; }
+        public Receta()
+        {
+            EventosReceta = new HashSet<EventosReceta>();
+            Reservas = new HashSet<Reserva>();
+        }
+
+        public int IdReceta { get; set; }
+        public int IdCocinero { get; set; }
+        public string Nombre { get; set; }
+        public int TiempoCoccion { get; set; }
+        public string Descripcion { get; set; }
+        public string Ingredientes { get; set; }
+        public int IdTipoReceta { get; set; }
+
+        public virtual TipoReceta IdTipoRecetaNavigation { get; set; }
+        public virtual ICollection<EventosReceta> EventosReceta { get; set; }
+        public virtual ICollection<Reserva> Reservas { get; set; }
     }
 }

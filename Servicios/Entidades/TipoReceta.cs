@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace Servicios.Entidades
-{ 
-    public enum TipoReceta
+{
+    public partial class TipoReceta
     {
-        Gourmet,
-        Diet,
-        Casera
+        public TipoReceta()
+        {
+            Receta = new HashSet<Receta>();
+        }
+
+        public int IdTipoReceta { get; set; }
+        public string Nombre { get; set; }
+
+        public virtual ICollection<Receta> Receta { get; set; }
     }
 }

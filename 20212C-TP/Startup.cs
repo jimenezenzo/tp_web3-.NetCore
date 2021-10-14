@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Servicios.Repositorios;
+using Servicios.Repositorios.Interfaces;
+using Servicios.Servicios;
+using Servicios.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +28,13 @@ namespace _20212C_TP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Servicios.Entidades._20212C_TPContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("EFCoreContext"));
+            });
+            services.AddTransient<Servicios.Entidades._20212C_TPContext>();
+            services.AddScoped<IRecetaRepositorio, RecetaRepositorio>();
+            services.AddScoped<IRecetaServicio, RecetaServicio>();
+
             services.AddControllersWithViews();
         }
 

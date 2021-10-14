@@ -1,27 +1,28 @@
 ﻿using _20212C_TP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Servicios.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Servicios.Servicios;
 
 namespace _20212C_TP.Controllers
 {
     public class HomeController : Controller
     {
-        private RecetaServicio _recetaServicio;
+        private IRecetaServicio _recetaServicio;
 
-        public HomeController()
+        public HomeController(IRecetaServicio recetaServicio)
         {
-            _recetaServicio = new RecetaServicio();
+            _recetaServicio = recetaServicio;
         }
-
         public IActionResult Index()
         {
-            return View(_recetaServicio.obtenerRecetas());
+            var recetas = _recetaServicio.ObtenerRecetas();
+
+            return View();
         }
 
         public IActionResult Ingresar()
