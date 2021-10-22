@@ -28,6 +28,15 @@ namespace _20212C_TP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<Servicios.Entidades._20212C_TPContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("EFCoreContext"));
@@ -63,6 +72,8 @@ namespace _20212C_TP
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

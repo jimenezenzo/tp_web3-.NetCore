@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using Servicios.Repositorios.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace Servicios.Servicios
 {
@@ -15,6 +16,19 @@ namespace Servicios.Servicios
         public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
+        }
+
+        public Usuario login(string email, string password)
+        {
+            if (_usuarioRepositorio.ValidarEmail(email))
+                throw new Exception("El email o contraseña es incorrecto");
+
+            Usuario userDb = _usuarioRepositorio.ObtenerUsuarioPorEmail(email);
+
+            if(userDb.Password != password)
+                throw new Exception("El email o contraseña es incorrecto");
+
+            return userDb;
         }
 
         public void registrarUsuario(string nombre, string email, string password, string passwordConfirmar, int perfil)

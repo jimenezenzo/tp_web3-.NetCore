@@ -32,7 +32,8 @@ namespace _20212C_TP.Controllers
 
                 _usuarioServicio.registrarUsuario(usuarioModel.Nombre, usuarioModel.Email, usuarioModel.Password, usuarioModel.PassworConfirmar, usuarioModel.Perfil);
 
-                return Redirect("/");
+                TempData["success"] = "Registro exito";
+                return Redirect("/login");
             }
             catch (Exception e)
             {
