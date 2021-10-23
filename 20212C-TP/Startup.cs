@@ -50,6 +50,9 @@ namespace _20212C_TP
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 
+            services.AddScoped<IEventoRepositorio, EventoRepositorio>();
+            services.AddScoped<IEventoServicio, EventoServicio>();
+
             services.AddControllersWithViews();
         }
 

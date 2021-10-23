@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
+@model _20212C_TP.Models.EventoViewModel
+}
 
 <div class="row">
     <div class="col">
@@ -11,3 +13,83 @@
         </div>
     </div>
 </div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6 col-md-8">
+        @if (ViewBag.error != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> @ViewBag.error
+            </div>
+        }
+
+        <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+                <div class="text-center text-muted mb-4">
+                    <small>Complete con los datos del evento</small>
+                </div>
+                <form role="form" asp-controller="Cocineros" asp-action="Eventos" method="post">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                            </div>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ingrese su nombre" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-album-2"></i></span>
+                            </div>
+                            <input asp-for="Fecha" class="form-control">
+                        </div>
+                        <span asp-validation-for="Fecha" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                            </div>
+                            <input asp-for="CantidadComensales" class="form-control" placeholder="Ingrese la cantidad de comensales">
+                        </div>
+                        <span asp-validation-for="CantidadComensales" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
+                            </div>
+                            <input asp-for="Ubicacion" class="form-control" placeholder="Ingrese la ubicacion">
+                        </div>
+                        <span asp-validation-for="Ubicacion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-image"></i></span>
+                            </div>
+                            <input asp-for="Foto" class="form-control" placeholder="Ingrese una foto">
+                        </div>
+                        <span asp-validation-for="Foto" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                            </div>
+                            <input asp-for="Precio" class="form-control" placeholder="Ingrese el precio">
+                        </div>
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-4">Crear Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
