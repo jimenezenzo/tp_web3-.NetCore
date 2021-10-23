@@ -34,7 +34,10 @@ namespace _20212C_TP.Controllers
                 if (!ModelState.IsValid)
                     return View("Views/Cocineros/Eventos.cshtml");
 
-                _eventoServicio.crearUnEvento(1,eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, eventoModel.Foto, eventoModel.Precio, 1);
+
+                int idCocinero = HttpContext.Session.Get<int>("idUsuario");
+
+                _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, eventoModel.Foto, eventoModel.Precio, 1);
 
                 TempData["success"] = "Evento creado con exito";
                 return Redirect("/Cocineros/Perfil");
@@ -47,7 +50,9 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Perfil()
         {
-            return View();
+            int idCocinero = HttpContext.Session.Get<int>("idUsuario");
+
+            return View(_eventoServicio.ObtenerEventosPorCocinero(2));
         }
         public ActionResult Cancelacion()
         {
