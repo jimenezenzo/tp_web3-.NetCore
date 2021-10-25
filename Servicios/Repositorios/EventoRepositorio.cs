@@ -15,11 +15,14 @@ namespace Servicios.Repositorios
         {
             _db = db;
         }
-        public void CrearEvento(Evento evento)
+        public int CrearEvento(Evento evento)
         {
             _db.Eventos.Add(evento);
             _db.SaveChanges();
+
+            return evento.IdEvento;
         }
+
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero)
         {
@@ -33,6 +36,16 @@ namespace Servicios.Repositorios
                 }
             }
             return es;
+        }
+        public void CrearEventosRecetas(int IdEvento, int IdReceta)
+        {
+            EventosReceta er = new EventosReceta();
+            er.IdEvento = IdEvento;
+            er.IdReceta = IdReceta;
+
+            _db.EventosRecetas.Add(er);
+            _db.SaveChanges();
+
         }
     }
 }

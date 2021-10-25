@@ -8,5 +8,7 @@ namespace Servicios.Repositorios.Interfaces
     public interface IRecetaRepositorio
     {
         public List<Entidades.Receta> ObtenerRecetas();
+
+        public List<Entidades.Receta> ObtenerRecetasPorCocinero(int idCocinero);
     }
 }

@@ -19,5 +19,18 @@ namespace Servicios.Repositorios
         {
             return _db.Recetas.ToList();
         }
+        public List<Receta> ObtenerRecetasPorCocinero(int idCocinero)
+        {
+            List<Receta> recetas = new List<Receta>();
+
+            foreach (Receta r in _db.Recetas)
+            {
+                if (r.IdCocinero == idCocinero)
+                {
+                    recetas.Add(r);
+                }
+            }
+            return recetas;
+        }
     }
 }
