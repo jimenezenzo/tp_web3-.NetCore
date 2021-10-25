@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Servicios.Entidades;
 using Servicios.Repositorios;
 using Servicios.Repositorios.Interfaces;
 using Servicios.Servicios.Interfaces;
@@ -19,6 +20,12 @@ namespace Servicios.Servicios
         public List<Entidades.Receta> ObtenerRecetas()
         {
             return _recetaRepositorio.ObtenerRecetas();
+        }
+
+
+        public List<Receta> ObtenerRecetasPosCocinero(int idCocinero)
+        {
+            return _recetaRepositorio.ObtenerRecetasPorCocinero(idCocinero);
         }
     }
 }

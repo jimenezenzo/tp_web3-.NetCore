@@ -12,10 +12,12 @@ namespace _20212C_TP.Controllers
     public class CocinerosController : Controller
     {
         IEventoServicio _eventoServicio;
+        IRecetaServicio _recetaServicio;
 
-        public CocinerosController(IEventoServicio eventoServicio)
+        public CocinerosController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio)
         {
             _eventoServicio = eventoServicio;
+            _recetaServicio = recetaServicio;
         }
         public ActionResult Recetas()
         {
@@ -24,20 +26,30 @@ namespace _20212C_TP.Controllers
         [HttpGet]
         public ActionResult Eventos()
         {
+            
+            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
+            
             return View();
         }
         [HttpPost]
-        public ActionResult Eventos(EventoViewModel eventoModel)
+        public ActionResult Eventos(EventoViewModel eventoModel,string IdRecetas)
         {
             try
             {
                 if (!ModelState.IsValid)
+                {
+                    ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
                     return View("Views/Cocineros/Eventos.cshtml");
+                }
 
 
                 int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
-                _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, eventoModel.Foto, eventoModel.Precio, 1);
+                int idEvento=  _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, eventoModel.Foto, eventoModel.Precio, 1);
+
+                String[] ArrayId = IdRecetas.Split(',');
+
+                _eventoServicio.CrearEventosRecetas(idEvento, ArrayId);
 
                 TempData["success"] = "Evento creado con exito";
                 return Redirect("/Cocineros/Perfil");
@@ -45,6 +57,7 @@ namespace _20212C_TP.Controllers
             catch (Exception e)
             {
                 ViewBag.error = e.Message;
+                ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
                 return View("Views/Cocineros/Eventos.cshtml");
             }
         }

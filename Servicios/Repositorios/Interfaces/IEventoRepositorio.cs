@@ -8,8 +8,10 @@ namespace Servicios.Repositorios.Interfaces
 {
     public interface IEventoRepositorio
     {
-        public void CrearEvento(Evento evento);
+        public int CrearEvento(Evento evento);
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero);
+
+        public void CrearEventosRecetas(int IdEvento, int IdReceta);
     }
 }

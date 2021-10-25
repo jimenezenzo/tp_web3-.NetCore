@@ -17,7 +17,9 @@ namespace Servicios.Servicios
         {
             _eventoRepositorio = eventoRepositorio;
         }
-        public void crearUnEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio, int estado)
+
+
+        public int crearUnEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio, int estado)
         {
             Evento e = new Evento();
             e.IdCocinero = idCocinero;
@@ -29,12 +31,20 @@ namespace Servicios.Servicios
             e.Precio = precio;
             e.Estado = estado;
 
-            _eventoRepositorio.CrearEvento(e);
+            return _eventoRepositorio.CrearEvento(e);
         }
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero)
         {
             return _eventoRepositorio.ObtenerEventosPorCocinero(idCocinero);
+        }
+        public void CrearEventosRecetas(int IdEvento, String[] IdReceta)
+        {
+            for (int i = 0; i < IdReceta.Length-1; i++)
+            {
+                int id = int.Parse(IdReceta[i]);
+            _eventoRepositorio.CrearEventosRecetas(IdEvento, id);
+            }
         }
     }
 }
