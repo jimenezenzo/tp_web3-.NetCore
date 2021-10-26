@@ -10,5 +10,7 @@ namespace Servicios.Servicios.Interfaces
         public List<Entidades.Receta> ObtenerRecetas();
 
         public List<Entidades.Receta> ObtenerRecetasPosCocinero(int idCocinero);
+
+        public List<Entidades.TipoReceta> ObtenerTiposDeRecetas();
     }
 }

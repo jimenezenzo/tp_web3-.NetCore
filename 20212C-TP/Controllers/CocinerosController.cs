@@ -65,7 +65,15 @@ namespace _20212C_TP.Controllers
         {
             int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
-            return View(_eventoServicio.ObtenerEventosPorCocinero(2));
+            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
+            ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(2);
+            ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
+            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximo(2);
+            ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(2);
+            ViewBag.Cont = 0;
+
+
+            return View();
         }
         public ActionResult Cancelacion()
         {

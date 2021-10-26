@@ -32,5 +32,9 @@ namespace Servicios.Repositorios
             }
             return recetas;
         }
+        public List<TipoReceta> ObtenerTiposDeRecetas()
+        {
+            return _db.TipoRecetas.ToList();
+        }
     }
 }

@@ -22,10 +22,14 @@ namespace Servicios.Servicios
             return _recetaRepositorio.ObtenerRecetas();
         }
 
-
         public List<Receta> ObtenerRecetasPosCocinero(int idCocinero)
         {
             return _recetaRepositorio.ObtenerRecetasPorCocinero(idCocinero);
         }
+        public List<Entidades.TipoReceta> ObtenerTiposDeRecetas()
+        {
+            return _recetaRepositorio.ObtenerTiposDeRecetas();
+        }
+
     }
 }

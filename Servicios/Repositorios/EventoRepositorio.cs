@@ -26,16 +26,11 @@ namespace Servicios.Repositorios
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero)
         {
-            List<Evento> es = new List<Evento>();
+            var query = from e in _db.Eventos
+                        where e.IdCocinero == idCocinero
+                        select e;
 
-            foreach (Evento e in _db.Eventos)
-            {
-                if(e.IdCocinero == idCocinero)
-                {
-                    es.Add(e);
-                }
-            }
-            return es;
+            return query.ToList();
         }
         public void CrearEventosRecetas(int IdEvento, int IdReceta)
         {
@@ -46,6 +41,22 @@ namespace Servicios.Repositorios
             _db.EventosRecetas.Add(er);
             _db.SaveChanges();
 
+        }
+
+        public Evento ObtenerEventoProximo(int idCocinero)
+        {
+            return _db.Eventos.OrderBy(d => d).FirstOrDefault(e => e.IdCocinero == idCocinero && e.Estado == 1);
+        }
+
+        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
+        {
+            var query = from e in _db.Eventos
+                        join r in _db.Reservas
+                        on e.IdEvento equals r.IdEvento
+                        where e.IdCocinero == idCocinero
+                        select r;
+
+            return query.ToList();
         }
     }
 }
