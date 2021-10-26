@@ -2,8 +2,6 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-@model List<Servicios.Entidades.Evento>
-
 <div class="header pb-8">
     <div class="container-fluid">
         <div class="header-body">
@@ -13,8 +11,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5> <!--  -->
-                                    <span class="h2 font-weight-bold mb-0">350,897</span><!--  -->
+                                    <h5 class="card-title text-uppercase text-muted mb-0">@ViewBag.EventoProximo.Fecha</h5> <!--  -->
+                                    <span class="h2 font-weight-bold mb-0">@ViewBag.EventoProximo.Nombre</span><!--  -->
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -23,8 +21,8 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span><!--  -->
-                                <span class="text-nowrap">Since last month</span><!--  -->
+                                <span class="text-success mr-2">0 /</span><!--  -->
+                                <span class="text-nowrap">@ViewBag.EventoProximo.CantidadComensales</span><!--  -->
                             </p>
                         </div>
                     </div>
@@ -97,21 +95,20 @@
     </div>
 </div>
 
-
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col">
-            <div class="card bg-default shadow">
-                <div class="card-header bg-transparent border-0">
-                    <h3 class="text-white mb-0">Card tables</h3>
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Card tables</h3>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center table-dark table-flush">
-                        <thead class="thead-dark">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
                             <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Fecha</th>
-                                <th scope="col">CantidadComensales</th>
+                                <th scope="col">Cantidad Comensales</th>
                                 <th scope="col">Ubicacion</th>
                                 <th scope="col">Foto</th>
                                 <th scope="col">Precio</th>
@@ -120,7 +117,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var evento in Model)
+                            @foreach (var evento in ViewBag.Eventos)
                             {
                                 <tr>
                                     <th scope="row">
@@ -130,7 +127,15 @@
                                         @evento.Fecha
                                     </td>
                                     <td>
-                                        @evento.CantidadComensales
+                                        @foreach (var reserva in ViewBag.Reservas)
+                                        {
+                                            if (evento.IdEvento == reserva.IdEvento)
+                                            {
+                                                ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
+                                            }
+                                        }
+                                        @ViewBag.Cont /@evento.CantidadComensales
+
                                     </td>
                                     <td>
                                         @evento.Ubicacion
@@ -139,10 +144,18 @@
                                         @evento.Foto
                                     </td>
                                     <td>
-                                        @evento.Precio
+                                        $ @evento.Precio
                                     </td>
                                     <td>
-                                        @evento.Estado
+                                        @switch (@evento.Estado)
+                                        {
+                                            case 1:<span>Pendiente</span>
+                                                break;
+                                            case 2:<span>Cancelado</span>
+                                                break;
+                                            case 3:<span>Finalizado</span>
+                                                break;
+                                        }
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown">
@@ -154,6 +167,53 @@
                                             </div>
                                         </div>
                                     </td>
+                                @{ViewBag.Cont = 0;}
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card bg-default shadow">
+                <div class="card-header bg-transparent border-0">
+                    <h3 class="text-white mb-0">Card tables</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-dark table-flush">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">TiempoCoccion</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Ingredientes</th>
+                                <th scope="col">Tipo de Receta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var receta in ViewBag.Recetas)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        @receta.Nombre
+                                    </th>
+                                    <td>
+                                        @receta.TiempoCoccion Minutos
+                                    </td>
+                                    <td>
+                                        @receta.Descripcion
+                                    </td>
+                                    <td>
+                                        @receta.Ingredientes
+                                    </td>
+                                    <td>
+                                        @receta.IdTipoRecetaNavigation.Nombre
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -163,3 +223,30 @@
         </div>
     </div>
 </div>
+
+<span>Recetas Cargadas en la pagina</span>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">TiempoCoccion</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Ingredientes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in ViewBag.Reservas)
+        {
+        <tr>
+            <td>@reserva.IdReserva</td>
+            <td>@reserva.IdEvento</td>
+            <td>@reserva.IdComensal</td>
+            <td>@reserva.IdReceta</td>
+            <td>@reserva.CantidadComensales</td>
+            <td>@reserva.FechaCreacion</td>
+        </tr>
+        }
+    </tbody>
+</table>

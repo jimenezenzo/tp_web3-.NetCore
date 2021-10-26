@@ -46,5 +46,15 @@ namespace Servicios.Servicios
             _eventoRepositorio.CrearEventosRecetas(IdEvento, id);
             }
         }
+
+        public Evento ObtenerEventoProximo(int idCocinero)
+        {
+            return _eventoRepositorio.ObtenerEventoProximo(idCocinero);
+        }
+
+        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
+        {
+            return _eventoRepositorio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
+        }
     }
 }

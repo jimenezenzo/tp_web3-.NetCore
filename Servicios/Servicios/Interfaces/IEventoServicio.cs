@@ -13,5 +13,9 @@ namespace Servicios.Servicios.Interfaces
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero);
 
         public void CrearEventosRecetas(int IdEvento, String[] IdReceta);
+
+        public Evento ObtenerEventoProximo(int idCocinero);
+
+        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
     }
 }
