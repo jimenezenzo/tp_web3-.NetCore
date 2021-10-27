@@ -1,0 +1,7 @@
+﻿.img-evento-cocinero {
+    height: 100px;
+    width: auto;
+}
+.img-cocinero img{
+    box-shadow: none !important;
+}

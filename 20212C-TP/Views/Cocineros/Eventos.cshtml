@@ -4,16 +4,6 @@
 @model _20212C_TP.Models.EventoViewModel
 }
 
-<div class="row">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Eventos</h3>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="row justify-content-center mt-5">
     <div class="col-lg-6 col-md-8">
         @if (ViewBag.error != null)
@@ -85,39 +75,47 @@
                     </div>
 
                     <hr />
-                    <span>Recetas Cargadas en la pagina</span>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">TiempoCoccion</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Ingredientes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var receta in ViewBag.Recetas)
-                            {
-                                <tr>
-                                    <td>@receta.Nombre</td>
-                                    <td>@receta.TiempoCoccion</td>
-                                    <td>@receta.Descripcion</td>
-                                    <td>@receta.Ingredientes</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <div class="input-group input-group-alternative">
-                                                <input type="checkbox" class="form-control valores" value="@receta.IdReceta">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
 
-                    <input type="hidden" name="IdRecetas" value="" id="idRecetas"/>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow">
+                                <div class="card-header bg-transparent border-0">
+                                    <h3 class="mb-0">Eventos</h3>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-items-center table-flush">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">TiempoCoccion</th>
+                                                <th scope="col">Descripcion</th>
+                                                <th scope="col">Ingredientes</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var receta in ViewBag.Recetas)
+                                            {
+                                                <tr>
+                                                    <td>@receta.Nombre</td>
+                                                    <td>@receta.TiempoCoccion</td>
+                                                    <td>@receta.Descripcion</td>
+                                                    <td>@receta.Ingredientes</td>
+                                                    <td>
+                                                        <input type="checkbox" class="valores" value="@receta.IdReceta">
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                   <div class="text-center">
+                    <input type="hidden" name="IdRecetas" value="" id="idRecetas" />
+
+                    <div class="text-center">
                         <button type="submit" id="boton" class="btn btn-primary mt-4">Crear Evento</button>
                     </div>
                 </form>
@@ -126,20 +124,4 @@
     </div>
 </div>
 
-<script>
-    var boton = document.getElementById('boton');
-    var input = document.getElementById('idRecetas');
-    var checks = document.querySelectorAll('.valores');
-
-    boton.addEventListener('click', function () {
-        input.value = '';
-        checks.forEach((e) => {
-            if (e.checked == true)
-            {
-                input.value = e.value + ',' + input.value ;
-
-            }
-           
-        })
-    });
-</script>
+<script src="/js/Eventos.js"></script>
