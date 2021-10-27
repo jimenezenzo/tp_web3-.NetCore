@@ -2,14 +2,14 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
     var rutaFotoCocinero = "~/assets/img/cocinero.png";
 }
-
+<link type="text/css" href="/css/Perfil.css" rel="stylesheet">
 
     <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
             <div class="card card-profile shadow bg-default">
                 <div class="row justify-content-center">
                     <div class="col-lg-3 order-lg-2">
-                        <div class="card-profile-image">
+                        <div class="card-profile-image img-cocinero">
                             <a href="#">
                                 <img src="@rutaFotoCocinero" asp-append-version="true"/>
                             </a>
@@ -249,7 +249,7 @@
                                     <tr>
                                         <th scope="row">
                                             <div class="media align-items-center">
-                                                <img class="card-img" src="@rutaFoto" asp-append-version="true" style="height:100px;width:auto" />
+                                                <img class="card-img img-evento-cocinero" src="@rutaFoto" asp-append-version="true"/>
 
                                                 <div class="media-body">
                                                     <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@evento.Nombre</span>
