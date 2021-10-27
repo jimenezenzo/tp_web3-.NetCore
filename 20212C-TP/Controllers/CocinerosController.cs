@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Servicios.Servicios.Interfaces;
 using _20212C_TP.Models;
+using System.IO;
 
 namespace _20212C_TP.Controllers
 {
@@ -13,11 +14,13 @@ namespace _20212C_TP.Controllers
     {
         IEventoServicio _eventoServicio;
         IRecetaServicio _recetaServicio;
+        IUsuarioServicio _usuarioServicio;
 
-        public CocinerosController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio)
+        public CocinerosController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio)
         {
             _eventoServicio = eventoServicio;
             _recetaServicio = recetaServicio;
+            _usuarioServicio = usuarioServicio;
         }
         public ActionResult Recetas()
         {
@@ -42,10 +45,23 @@ namespace _20212C_TP.Controllers
                     return View("Views/Cocineros/Eventos.cshtml");
                 }
 
+                /*cargar imagen*/
+                string guidImagen = null;
 
+                if(eventoModel.Foto != null)
+                {
+                    string ficherosImagenes = Path.Combine("wwwroot/assets/img/evento");
+                    guidImagen = Guid.NewGuid().ToString() + eventoModel.Foto.FileName;
+                    string rutaDefinitiva = Path.Combine(ficherosImagenes, guidImagen);
+                    eventoModel.Foto.CopyTo(new FileStream(rutaDefinitiva, FileMode.Create));
+                }
+
+                
+
+                /*cargar evento*/
                 int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
-                int idEvento=  _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, eventoModel.Foto, eventoModel.Precio, 1);
+                int idEvento=  _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, guidImagen, eventoModel.Precio, 1);
 
                 String[] ArrayId = IdRecetas.Split(',');
 
@@ -70,6 +86,7 @@ namespace _20212C_TP.Controllers
             ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
             ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximo(2);
             ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(2);
+            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(2);
             ViewBag.Cont = 0;
 
 

@@ -13,5 +13,7 @@ namespace Servicios.Repositorios.Interfaces
         public Usuario ObtenerUsuarioPorEmail(string email);
 
         public bool ValidarEmail(string email);
+
+        public Usuario ObtenerUsuarioPorId(int IdUsuario);
     }
 }

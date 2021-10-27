@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace _20212C_TP.Models
 {
@@ -20,10 +21,9 @@ namespace _20212C_TP.Models
         [Required(ErrorMessage = "Ingrese la Ubicacion")]
         public string Ubicacion { get; set; }
 
-        [Required(ErrorMessage = "Ingrese la Foto")]
-        public string Foto { get; set; }
-
         [Required(ErrorMessage = "Ingrese una Precio")]
         public decimal Precio { get; set; }
+
+        public IFormFile Foto { get; set; }
     }
 }
