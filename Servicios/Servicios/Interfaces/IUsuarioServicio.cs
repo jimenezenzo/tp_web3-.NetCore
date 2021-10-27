@@ -11,5 +11,7 @@ namespace Servicios.Servicios.Interfaces
         public void registrarUsuario(string nombre, string email, string password, string passwordConfirmar, int perfil);
 
         public Usuario login(string email, string password);
+
+        public Usuario ObtenerUsuarioPorId(int IdUsuario);
     }
 }

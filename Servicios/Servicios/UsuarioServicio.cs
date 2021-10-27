@@ -48,5 +48,9 @@ namespace Servicios.Servicios
 
             _usuarioRepositorio.AgregarUsuario(usuario);
         }
+        public Usuario ObtenerUsuarioPorId(int IdUsuario)
+        {
+            return _usuarioRepositorio.ObtenerUsuarioPorId(IdUsuario);
+        }
     }
 }

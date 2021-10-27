@@ -32,5 +32,9 @@ namespace Servicios.Repositorios
 
             return usuario == null;
         }
+        public Usuario ObtenerUsuarioPorId(int IdUsuario)
+        {
+            return _db.Usuarios.FirstOrDefault(u => u.IdUsuario == IdUsuario);
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace Servicios.Repositorios
 
         public Evento ObtenerEventoProximo(int idCocinero)
         {
-            return _db.Eventos.OrderBy(d => d).FirstOrDefault(e => e.IdCocinero == idCocinero && e.Estado == 1);
+            return _db.Eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.IdCocinero == idCocinero && e.Estado == 1);
         }
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
