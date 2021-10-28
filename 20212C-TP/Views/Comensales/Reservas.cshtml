@@ -1,6 +1,316 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+    var rutaFotoComensal = "~/assets/img/comensal.png";
+
+    int contEventosPendientes = 0;
+    int contEventosFinalizados = 0;
+    int comensalesPRoximoEvento = 0;
+    @foreach (var reserva in ViewBag.Reservas)
+    {
+        if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
+        {
+            comensalesPRoximoEvento = reserva.CantidadComensales;
+        }
+        if(reserva.IdEventoNavigation.Estado == 1) {
+            contEventosPendientes++;
+        }
+        if (reserva.IdEventoNavigation.Estado == 3)
+        {
+            contEventosFinalizados++;
+        }
+    }
 }
-<h1>Reservas</h1>
+<link type="text/css" href="/css/Reservas.css" rel="stylesheet">
+
+
+
+
+<div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow bg-default">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                    <div class="card-profile-image img-comensal">
+                        <a href="#">
+                            <img src="@rutaFotoComensal" asp-append-version="true" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 bg-default">
+                <div class="d-flex justify-content-between">
+                    <a href="#" class="btn btn-sm btn-info mr-4">comensal</a>
+                    <a href="#" class="btn btn-sm btn-danger float-right">Cerrar sesion</a>
+                </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-profile-stats d-flex justify-content-center mt-md-5 text-white">
+                            <div>
+                                <span class="heading">@contEventosPendientes</span>
+                                <span class="description">Pendientes</span>
+                            </div>
+                            <div>
+                                <span class="heading">@contEventosFinalizados</span>
+                                <span class="description">Finalizados</span>
+                            </div>
+                            <div>
+                                <span class="heading">@ViewBag.Usuario.FechaRegistracion.Date.ToString("dd-MM-yyyy")</span>
+                                <span class="description">Fecha de registro</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-white">
+                    <h3 class="text-white">
+                        @ViewBag.Usuario.Nombre
+                    </h3>
+                    <div>
+                        @ViewBag.Usuario.Email
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-xl-8 order-xl-1 mb-5">
+        <div class="header">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12 mb-4">
+                            <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Proximo Evento</h5>
+                                            <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.EventoProximo.Nombre</span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                                <i class="far fa-calendar-check"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2">
+                                            @ViewBag.EventoProximo.Fecha
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-12  mb-4">
+                            <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Lugar del evento</h5>
+                                            <span class="h2 font-weight-bold mb-0 text-white">
+                                                @ViewBag.EventoProximo.Ubicacion
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2">@ViewBag.EventoProximo.Nombre</span>
+                                        <span class="text-nowrap">@ViewBag.EventoProximo.Fecha</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-12 mb-4">
+                            <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Precio Unitario</h5>
+                                            <span class="h2 font-weight-bold mb-0 text-white">
+                                                @ViewBag.EventoProximo.Precio
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2"></i>@ViewBag.EventoProximo.Nombre</span>
+                                        <span class="text-nowrap">@ViewBag.EventoProximo.Fecha</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-12 mb-4">
+                            <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Precio total</h5>
+                                            <span class="h2 font-weight-bold mb-0 text-white">
+                                                @(ViewBag.EventoProximo.Precio * comensalesPRoximoEvento)
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                                <i class="fas fa-money-bill-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2">@comensalesPRoximoEvento</span>
+                                        <span class="text-nowrap">cantidad de comensales</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-6">
+    <div class="col">
+        <div class="card shadow bg-default">
+            <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0 text-white">Eventos</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-dark table-flush">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Evento</th>
+                            <th scope="col">Cantidad de comensales</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Ubicacion</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Receta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reserva in ViewBag.Reservas)
+                        {
+                            var rutaFoto = "~/assets/img/evento/" + (reserva.IdEventoNavigation.Foto ?? "default.jpg");
+                            if (reserva.IdEventoNavigation.Estado == 2)
+                            {
+                                <tr class="evento-cancelado">
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <img class="card-img img-evento-comensal" src="@rutaFoto" asp-append-version="true" />
+
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@reserva.IdEventoNavigation.Nombre</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        @reserva.CantidadComensales
+                                    </td>
+                                    <td>
+                                        @reserva.IdEventoNavigation.Fecha
+                                    </td>
+                                    <td>
+                                        @reserva.IdEventoNavigation.Ubicacion
+                                    </td>
+                                    <td>
+                                        $ @reserva.IdEventoNavigation.Precio
+                                    </td>
+                                    <td>
+                                        @switch (reserva.IdEventoNavigation.Estado)
+                                        {
+                                            case 1:<span class="badge badge-dot">
+                                                    <i class="bg-info"></i> Pendiente
+                                                </span>
+                                                break;
+                                            case 2:<span class="badge badge-dot">
+                                                    <i class="bg-danger"></i> Cancelado
+                                                </span>
+                                                break;
+                                            case 3:<span class="badge badge-dot">
+                                                    <i class="bg-success"></i> Finalizado
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var receta in ViewBag.Recetas)
+                                        {
+                                            if (reserva.IdReceta == receta.IdReceta)
+                                            {
+                                                @receta.Nombre
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <img class="card-img img-evento-comensal" src="@rutaFoto" asp-append-version="true" />
+
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@reserva.IdEventoNavigation.Nombre</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        @reserva.CantidadComensales
+                                    </td>
+                                    <td>
+                                        @reserva.IdEventoNavigation.Fecha
+                                    </td>
+                                    <td>
+                                        @reserva.IdEventoNavigation.Ubicacion
+                                    </td>
+                                    <td>
+                                        $ @reserva.IdEventoNavigation.Precio
+                                    </td>
+                                    <td>
+                                        @switch (reserva.IdEventoNavigation.Estado)
+                                        {
+                                            case 1:<span class="badge badge-dot">
+                                                    <i class="bg-info"></i> Pendiente
+                                                </span>
+                                                break;
+                                            case 2:<span class="badge badge-dot">
+                                                    <i class="bg-danger"></i> Cancelado
+                                                </span>
+                                                break;
+                                            case 3:<span class="badge badge-dot">
+                                                    <i class="bg-success"></i> Finalizado
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var receta in ViewBag.Recetas)
+                                        {
+                                            if (reserva.IdReceta == receta.IdReceta)
+                                            {
+                                                @receta.Nombre
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

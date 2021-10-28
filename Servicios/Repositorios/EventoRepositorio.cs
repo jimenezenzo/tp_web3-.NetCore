@@ -43,9 +43,19 @@ namespace Servicios.Repositorios
 
         }
 
-        public Evento ObtenerEventoProximo(int idCocinero)
+        public Evento ObtenerEventoProximoPorCocinero(int idCocinero)
         {
             return _db.Eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.IdCocinero == idCocinero && e.Estado == 1);
+        }
+
+        public Evento ObtenerEventoProximoPorComensal(int idComensal)
+        {
+            List<Evento> eventos = new List<Evento>();
+
+            eventos = obtenerEventosPorComensal(idComensal);
+
+            return eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.Estado == 1);
+
         }
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
@@ -58,5 +68,34 @@ namespace Servicios.Repositorios
 
             return query.ToList();
         }
+        public List<Evento> obtenerEventosPorComensal(int idComensal)
+        {
+            List<Reserva> reservas = new List<Reserva>();
+            List<Evento> eventos = new List<Evento>();
+
+            var query = from r in _db.Reservas
+                        where r.IdComensal == idComensal
+                        select r;
+
+            reservas = query.ToList();
+
+            foreach (var re in reservas)
+            {
+                eventos.Add(_db.Eventos.FirstOrDefault(e => e.IdEvento == re.IdEvento));
+            }
+            return eventos;
+        }
+
+        /*(1)*/
+        public List<Reserva> obtenerReservasPorComensal(int idComensal)
+        {
+            var query = from r in _db.Reservas
+                        where r.IdComensal == idComensal
+                        select r;
+
+            return query.ToList();
+        }
+
+       
     }
 }

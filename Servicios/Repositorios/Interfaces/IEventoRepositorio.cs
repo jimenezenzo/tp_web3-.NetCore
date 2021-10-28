@@ -14,8 +14,17 @@ namespace Servicios.Repositorios.Interfaces
 
         public void CrearEventosRecetas(int IdEvento, int IdReceta);
 
-        public Evento ObtenerEventoProximo(int idCocinero);
+        public Evento ObtenerEventoProximoPorCocinero(int idCocinero);
+
+        public Evento ObtenerEventoProximoPorComensal(int idComensal);
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
+
+        public List<Evento> obtenerEventosPorComensal(int idComensal);
+
+
+        /*mover al repositorio reserva (1)*/
+        public List<Reserva> obtenerReservasPorComensal(int idComensal);
+
     }
 }

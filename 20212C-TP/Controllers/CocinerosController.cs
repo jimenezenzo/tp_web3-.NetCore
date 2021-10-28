@@ -84,7 +84,7 @@ namespace _20212C_TP.Controllers
             ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
             ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(2);
             ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
-            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximo(2);
+            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorCocinero(2);
             ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(2);
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(2);
             ViewBag.Cont = 0;
