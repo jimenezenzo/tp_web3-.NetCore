@@ -47,14 +47,29 @@ namespace Servicios.Servicios
             }
         }
 
-        public Evento ObtenerEventoProximo(int idCocinero)
+        public Evento ObtenerEventoProximoPorCocinero(int idCocinero)
         {
-            return _eventoRepositorio.ObtenerEventoProximo(idCocinero);
+            return _eventoRepositorio.ObtenerEventoProximoPorCocinero(idCocinero);
+        }
+        public Evento ObtenerEventoProximoPorComensal(int idCocinero)
+        {
+            return _eventoRepositorio.ObtenerEventoProximoPorComensal(idCocinero);
         }
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
         {
             return _eventoRepositorio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
         }
+        public List<Evento> obtenerEventosPorComensal(int idComensal)
+        {
+            return _eventoRepositorio.obtenerEventosPorComensal(idComensal);
+        }
+
+        /*(1)*/
+        public List<Reserva> obtenerReservasPorComensal(int idComensal)
+        {
+            return _eventoRepositorio.obtenerReservasPorComensal(idComensal);
+        }
+
     }
 }
