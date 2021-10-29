@@ -31,12 +31,12 @@ namespace _20212C_TP.Controllers
             int idComensal = HttpContext.Session.Get<int>("idUsuario");
 
 
-            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(1);
-            ViewBag.Reservas = _eventoServicio.obtenerReservasPorComensal(1);
-            ViewBag.Eventos = _eventoServicio.obtenerEventosPorComensal(1);
+            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(3);
+            ViewBag.Reservas = _eventoServicio.obtenerReservasPorComensal(3);
+            ViewBag.Eventos = _eventoServicio.obtenerEventosPorComensal(3);
             ViewBag.Recetas = _recetaServicio.ObtenerRecetas();
             
-            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(1);
+            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(3);
 
 
 
