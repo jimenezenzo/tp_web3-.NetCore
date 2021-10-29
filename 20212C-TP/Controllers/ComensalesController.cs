@@ -27,16 +27,22 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Reservas()
         {
+            int perfil = HttpContext.Session.Get<int>("perfil");
+
+            if (perfil != 1)
+            {
+                return Redirect("/Home/Index");
+            }
 
             int idComensal = HttpContext.Session.Get<int>("idUsuario");
 
 
-            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(3);
-            ViewBag.Reservas = _eventoServicio.obtenerReservasPorComensal(3);
-            ViewBag.Eventos = _eventoServicio.obtenerEventosPorComensal(3);
+
+            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idComensal);
+            ViewBag.Reservas = _eventoServicio.obtenerReservasPorComensal(idComensal);
+            ViewBag.Eventos = _eventoServicio.obtenerEventosPorComensal(idComensal);
+            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(idComensal);
             ViewBag.Recetas = _recetaServicio.ObtenerRecetas();
-            
-            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(3);
 
 
 
