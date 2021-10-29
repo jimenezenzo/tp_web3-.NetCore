@@ -11,6 +11,12 @@
             <div class="alert alert-danger" role="alert">
                 <strong>Error!</strong> @ViewBag.error
             </div>
+        } 
+        @if (ViewBag.errorReceta != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> @ViewBag.errorReceta
+            </div>
         }
 
         <div class="card bg-secondary shadow border-0">
