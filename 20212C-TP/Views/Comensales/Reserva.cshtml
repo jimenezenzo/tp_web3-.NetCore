@@ -2,12 +2,47 @@
     Layout = "~/Views/Shared/_LayoutComensal.cshtml";
 }
 
-<div class="row">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Reserva</h3>
+@model List<Servicios.Entidades.Evento>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Eventos disponibles</h3>
+                </div>
+                <div class="container">
+                    @if (Model.Count > 0)
+                    {
+                        <div class="card-deck">
+                            @foreach (var evento in Model)
+                            {
+                                <div class="card col-md-4 col-lg-3" style="width: 18rem;">
+                                    <img class="card-img-top" src="@evento.Foto" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h3 class="card-title">@evento.Nombre</h3>
+                                        <p class="card-text">
+                                            Precio: @evento.Precio <br />
+                                            Ubicacion: @evento.Ubicacion <br />
+                                            Disponibilidad: @evento.CantidadComensalesDisponibles
+                                        </p>
+                                        <a href="/comensales/@evento.IdEvento/reservar" class="btn btn-primary">Reservar</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Fecha: @evento.Fecha</small>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            No hay eventos disponibles
+                        </div>
+                    }
+
+                </div>
             </div>
         </div>
     </div>
-</div>

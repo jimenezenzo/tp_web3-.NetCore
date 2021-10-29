@@ -56,5 +56,10 @@ namespace Servicios.Servicios
         {
             return _eventoRepositorio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
         }
+
+        public Evento ObtenerEventoPorId(int idEvento)
+        {
+            return _eventoRepositorio.ObtenerEventoPorId(idEvento);
+        }
     }
 }

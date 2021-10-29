@@ -19,7 +19,7 @@ namespace Servicios.Repositorios
 
         public List<Evento> ObtenerEventosParaReservar()
         {
-            var query = from e in _db.Eventos.Include("EventosReceta").Include("Reservas")
+            var query = from e in _db.Eventos.Include("Reservas")
                         where e.Fecha > DateTime.Now
                         select e;
 
@@ -37,6 +37,22 @@ namespace Servicios.Repositorios
             }
 
             return returnEventos;
+        }
+
+        public List<Receta> ObtenerRecetasPorEvento(int idEvento)
+        {
+            var query = from r in _db.EventosRecetas.Include("IdRecetaNavigation")
+                        where r.IdEvento.Equals(idEvento)
+                        select r.IdRecetaNavigation;
+
+
+            return query.ToList();
+        }
+
+        public void ReservarEvento(Reserva reserva)
+        {
+            _db.Reservas.Add(reserva);
+            _db.SaveChanges();
         }
     }
 }

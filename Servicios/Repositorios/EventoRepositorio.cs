@@ -58,5 +58,10 @@ namespace Servicios.Repositorios
 
             return query.ToList();
         }
+
+        public Evento ObtenerEventoPorId(int idEvento)
+        {
+            return _db.Eventos.FirstOrDefault(e => e.IdEvento.Equals(idEvento));
+        }
     }
 }

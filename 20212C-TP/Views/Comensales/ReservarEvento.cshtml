@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutComensal.cshtml";
+}
+
+@model _20212C_TP.Models.ReservaViewModel
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Reservar @ViewBag.evento.Nombre</h3>
+                </div>
+                <div class="container">
+                    <p class="mb-4">
+                        <span>Precio:</span> $@ViewBag.evento.Precio <br />
+                        <span>Ubicacion:</span> @ViewBag.evento.Ubicacion
+                    </p>
+                    <form action="/comensales/@ViewBag.evento.IdEvento/reservar" method="post">
+                        <div class="form-group">
+                            <label class="form-control-label">Seleccione la receta</label>
+                            <select class="form-control" asp-for="IdReceta">
+                                <option selected disabled>--Seleccione una receta--</option>
+                                @foreach (var r in ViewBag.recetas)
+                                {
+                                    <option value="@r.IdReceta">@r.Nombre</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IdReceta" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Ingrese la cantidad de comensales</label>
+                            <input asp-for="CantidadComensales" value="" class="form-control" placeholder="Ingrese la cantidad de comensales"/>
+                            <span asp-validation-for="CantidadComensales" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reservar</button>
+                    </form>
+                    <div class="mt-2">
+                        @if(ViewBag.error != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewBag.error
+                                </div>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
