@@ -6,69 +6,103 @@ using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using Servicios.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Servicios.Dominio;
 
 namespace Servicios.Servicios
 {
     public class EventoServicio : IEventoServicio
     {
         IEventoRepositorio _eventoRepositorio;
+        IUsuarioRepositorio _usuarioRepositorio;
+        IRecetaRepositorio _recetaRepositorio;
 
-        public EventoServicio(IEventoRepositorio eventoRepositorio)
+        public EventoServicio(
+            IEventoRepositorio eventoRepositorio, 
+            IUsuarioRepositorio usuarioRepositorio,
+            IRecetaRepositorio recetaRepositorio
+            )
         {
             _eventoRepositorio = eventoRepositorio;
+            _usuarioRepositorio = usuarioRepositorio;
+            _recetaRepositorio = recetaRepositorio;
         }
 
 
-        public int crearUnEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio, int estado)
+        public int CrearEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio)
         {
+            Usuario cocinero = this.ObtenerCocinero(idCocinero);
+
             Evento e = new Evento();
-            e.IdCocinero = idCocinero;
+            e.IdCocinero = cocinero.IdUsuario;
             e.Nombre = nombre;
             e.Fecha = fecha;
             e.CantidadComensales = cantidadComensales;
             e.Ubicacion = ubicacion;
             e.Foto = foto;
             e.Precio = precio;
-            e.Estado = estado;
+            e.Estado = ((int)EstadoEvento.PENDIENTE);
 
             return _eventoRepositorio.CrearEvento(e);
         }
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero)
         {
-            return _eventoRepositorio.ObtenerEventosPorCocinero(idCocinero);
+            return _eventoRepositorio
+                .ObtenerEventosPorCocinero(this.ObtenerCocinero(idCocinero));
         }
         public void CrearEventosRecetas(int IdEvento, String[] IdReceta)
         {
+            Evento evento = _eventoRepositorio.ObtenerEvento(IdEvento);
             for (int i = 0; i < IdReceta.Length-1; i++)
             {
                 int id = int.Parse(IdReceta[i]);
-            _eventoRepositorio.CrearEventosRecetas(IdEvento, id);
+                Receta receta = _recetaRepositorio.ObtenerReceta(id);
+                _eventoRepositorio.CrearEventosRecetas(evento, receta);
             }
         }
 
         public Evento ObtenerEventoProximoPorCocinero(int idCocinero)
         {
-            return _eventoRepositorio.ObtenerEventoProximoPorCocinero(idCocinero);
+
+            return _eventoRepositorio
+                .ObtenerEventoProximoPorCocinero(this.ObtenerCocinero(idCocinero));
+            
         }
-        public Evento ObtenerEventoProximoPorComensal(int idCocinero)
+        public Evento ObtenerEventoProximoPorComensal(int idComensal)
         {
-            return _eventoRepositorio.ObtenerEventoProximoPorComensal(idCocinero);
+            return _eventoRepositorio.ObtenerEventoProximoPorComensal(this.ObtenerComensal(idComensal));
         }
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
         {
-            return _eventoRepositorio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
+            return _eventoRepositorio
+                .ObtenerReservasDeEventosPorCocinero(this.ObtenerCocinero(idCocinero));
         }
-        public List<Evento> obtenerEventosPorComensal(int idComensal)
+        public List<Evento> ObtenerEventosPorComensal(int idComensal)
         {
-            return _eventoRepositorio.obtenerEventosPorComensal(idComensal);
+            return _eventoRepositorio
+                .ObtenerEventosPorComensal(this.ObtenerComensal(idComensal));
         }
 
         /*(1)*/
-        public List<Reserva> obtenerReservasPorComensal(int idComensal)
+        public List<Reserva> ObtenerReservasPorComensal(int idComensal)
         {
-            return _eventoRepositorio.obtenerReservasPorComensal(idComensal);
+            return _eventoRepositorio
+                .ObtenerReservasPorComensal(this.ObtenerComensal(idComensal));
+        }
+
+        private Usuario ObtenerCocinero(int idCocinero)
+        {
+            Usuario cocinero = _usuarioRepositorio.ObtenerUsuarioPorId(idCocinero);
+            // TODO: verificar que el usuario sea cocinero
+            return cocinero;
+        }
+
+        private Usuario ObtenerComensal(int idComensal)
+        {
+            Usuario comensal = _usuarioRepositorio.ObtenerUsuarioPorId(idComensal);
+            // TODO: verificar que el usuario sea comensal
+            return comensal;
         }
 
     }

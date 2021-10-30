@@ -83,7 +83,7 @@ namespace _20212C_TP.Controllers
 
                 /*cargar evento*/
 
-                int idEvento=  _eventoServicio.crearUnEvento(idCocinero, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, guidImagen, eventoModel.Precio, 1);
+                int idEvento=  _eventoServicio.CrearEvento(idCocinero, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, guidImagen, eventoModel.Precio);
 
 
                 /*cargar recetas en el evento*/
