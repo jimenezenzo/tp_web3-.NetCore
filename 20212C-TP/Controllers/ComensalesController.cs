@@ -39,8 +39,8 @@ namespace _20212C_TP.Controllers
 
 
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idComensal);
-            ViewBag.Reservas = _eventoServicio.obtenerReservasPorComensal(idComensal);
-            ViewBag.Eventos = _eventoServicio.obtenerEventosPorComensal(idComensal);
+            ViewBag.Reservas = _eventoServicio.ObtenerReservasPorComensal(idComensal);
+            ViewBag.Eventos = _eventoServicio.ObtenerEventosPorComensal(idComensal);
             ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(idComensal);
             ViewBag.Recetas = _recetaServicio.ObtenerRecetas();
 

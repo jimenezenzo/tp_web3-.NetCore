@@ -8,7 +8,7 @@ namespace Servicios.Servicios.Interfaces
 {
     public interface IEventoServicio
     {
-        public int crearUnEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio, int estado);
+        public int CrearEvento(int idCocinero, string nombre, DateTime fecha, int cantidadComensales, string ubicacion, string foto, decimal precio);
 
         public List<Evento> ObtenerEventosPorCocinero(int idCocinero);
 
@@ -20,10 +20,9 @@ namespace Servicios.Servicios.Interfaces
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
 
-        public List<Evento> obtenerEventosPorComensal(int idComensal);
-
+        public List<Evento> ObtenerEventosPorComensal(int idComensal);
 
         /*(1)*/
-        public List<Reserva> obtenerReservasPorComensal(int idComensal);
+        public List<Reserva> ObtenerReservasPorComensal(int idComensal);
     }
 }

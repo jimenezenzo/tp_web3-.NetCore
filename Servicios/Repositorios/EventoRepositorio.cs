@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Servicios.Dominio;
 using Servicios.Entidades;
 using Servicios.Repositorios.Interfaces;
 
@@ -23,79 +24,96 @@ namespace Servicios.Repositorios
             return evento.IdEvento;
         }
 
+        public Evento ObtenerEvento(int id)
+        {
+            var query = from eventos in _db.Eventos
+                        where eventos.IdEvento == id
+                        select eventos;
 
-        public List<Evento> ObtenerEventosPorCocinero(int idCocinero)
+            return query.Single();
+        }
+
+
+        public List<Evento> ObtenerEventosPorCocinero(Usuario usuario)
         {
             var query = from e in _db.Eventos
-                        where e.IdCocinero == idCocinero
+                        where e.IdCocinero == usuario.IdUsuario
                         select e;
 
             return query.ToList();
         }
-        public void CrearEventosRecetas(int IdEvento, int IdReceta)
+        public void CrearEventosRecetas(Evento evento, Receta receta)
         {
             EventosReceta er = new EventosReceta();
-            er.IdEvento = IdEvento;
-            er.IdReceta = IdReceta;
+            er.IdEvento = evento.IdEvento;
+            er.IdReceta = receta.IdReceta;
 
             _db.EventosRecetas.Add(er);
             _db.SaveChanges();
 
         }
 
-        public Evento ObtenerEventoProximoPorCocinero(int idCocinero)
+        public Evento ObtenerEventoProximoPorCocinero(Usuario usuario)
         {
-            return _db.Eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.IdCocinero == idCocinero && e.Estado == 1);
+            return _db.Eventos
+                .OrderBy(d => d.Fecha)
+                .FirstOrDefault(e => 
+                    e.IdCocinero == usuario.IdUsuario && 
+                    e.Estado == ((int)EstadoEvento.PENDIENTE)
+                 );
         }
 
-        public Evento ObtenerEventoProximoPorComensal(int idComensal)
+        public Evento ObtenerEventoProximoPorComensal(Usuario usuario)
         {
             List<Evento> eventos = new List<Evento>();
 
-            eventos = obtenerEventosPorComensal(idComensal);
+            eventos = ObtenerEventosPorComensal(usuario);
 
-            return eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.Estado == 1);
+            return eventos.OrderBy(d => d.Fecha).FirstOrDefault(e => e.Estado == ((int)EstadoEvento.PENDIENTE));
 
         }
 
-        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
+        public List<Reserva> ObtenerReservasDeEventosPorCocinero(Usuario usuario)
         {
             var query = from e in _db.Eventos
                         join r in _db.Reservas
                         on e.IdEvento equals r.IdEvento
-                        where e.IdCocinero == idCocinero
+                        where e.IdCocinero == usuario.IdUsuario
                         select r;
 
             return query.ToList();
         }
-        public List<Evento> obtenerEventosPorComensal(int idComensal)
+        public List<Evento> ObtenerEventosPorComensal(Usuario usuario)
         {
-            List<Reserva> reservas = new List<Reserva>();
-            List<Evento> eventos = new List<Evento>();
+            var query = from reservas in _db.Reservas
+                        join eventos in _db.Eventos on reservas.IdEvento equals eventos.IdEvento
+                        where reservas.IdComensal == usuario.IdUsuario
+                        select eventos;
 
-            var query = from r in _db.Reservas
-                        where r.IdComensal == idComensal
-                        select r;
-
-            reservas = query.ToList();
-
-            foreach (var re in reservas)
-            {
-                eventos.Add(_db.Eventos.FirstOrDefault(e => e.IdEvento == re.IdEvento));
-            }
-            return eventos;
+            return query.ToList();
         }
 
         /*(1)*/
-        public List<Reserva> obtenerReservasPorComensal(int idComensal)
+        public List<Reserva> ObtenerReservasPorComensal(Usuario usuario)
         {
             var query = from r in _db.Reservas
-                        where r.IdComensal == idComensal
+                        where r.IdComensal == usuario.IdUsuario
                         select r;
 
             return query.ToList();
         }
 
-       
+        public List<Evento> ObtenerEventosFinalizadosParaComensal(Usuario usuario)
+        {
+            var query = from reservas in _db.Reservas
+                        join eventos in _db.Eventos on reservas.IdEvento equals eventos.IdEvento
+                        where reservas.IdComensal == usuario.IdUsuario
+                        where eventos.Estado == ((int)EstadoEvento.FINALIZADO)
+                        select eventos;
+
+            return query.ToList();
+        }
+
+
     }
 }

@@ -19,11 +19,20 @@ namespace Servicios.Repositorios
         {
             return _db.Recetas.ToList();
         }
-        public List<Receta> ObtenerRecetasPorCocinero(int idCocinero)
+
+        public Receta ObtenerReceta(int id)
         {
-            var query = from r in _db.Recetas
-                        where r.IdCocinero == idCocinero
-                        select r;
+            var query = from recetas in _db.Recetas
+                        where recetas.IdReceta == id
+                        select recetas;
+
+            return query.Single();
+        }
+        public List<Receta> ObtenerRecetasPorCocinero(Usuario cocinero)
+        {
+            var query = from recetas in _db.Recetas
+                        where recetas.IdCocinero == cocinero.IdUsuario
+                        select recetas;
 
             return query.ToList();
         }
