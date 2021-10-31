@@ -8,6 +8,8 @@ namespace Servicios.Repositorios.Interfaces
 {
     public interface IRecetaRepositorio
     {
+        public void Crear(Receta receta);
+
         public List<Receta> ObtenerRecetas();
 
         public Receta ObtenerReceta(int idReceta);

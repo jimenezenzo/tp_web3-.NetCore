@@ -6,6 +6,7 @@ using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using Servicios.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Servicios.Dominio;
 
 namespace Servicios.Servicios
 {
@@ -51,6 +52,11 @@ namespace Servicios.Servicios
         public Usuario ObtenerUsuarioPorId(int IdUsuario)
         {
             return _usuarioRepositorio.ObtenerUsuarioPorId(IdUsuario);
+        }
+
+        public bool EsCocinero(Usuario usuario)
+        {
+            return usuario.Perfil == ((int)PerfilUsuario.COCINERO);
         }
     }
 }
