@@ -15,7 +15,8 @@
                         <span>Precio:</span> $@ViewBag.evento.Precio <br />
                         <span>Ubicacion:</span> @ViewBag.evento.Ubicacion
                     </p>
-                    <form action="/comensales/@ViewBag.evento.IdEvento/reservar" method="post">
+                    <form action="/comensales/reservar-evento" method="post">
+                        <input asp-for="IdEvento" value="@ViewBag.evento.IdEvento" type="hidden"/>
                         <div class="form-group">
                             <label class="form-control-label">Seleccione la receta</label>
                             <select class="form-control" asp-for="IdReceta">

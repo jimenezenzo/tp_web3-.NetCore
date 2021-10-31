@@ -54,5 +54,14 @@ namespace Servicios.Repositorios
             _db.Reservas.Add(reserva);
             _db.SaveChanges();
         }
+
+        public int ObtenerCantidadDeComensalesReservados(int idEvento)
+        {
+            var query = from r in _db.Reservas
+                        where r.IdEvento.Equals(idEvento)
+                        select r;
+
+            return query.Sum(r => r.CantidadComensales);
+        }
     }
 }

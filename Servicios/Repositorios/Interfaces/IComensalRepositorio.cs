@@ -13,5 +13,7 @@ namespace Servicios.Repositorios.Interfaces
         public List<Receta> ObtenerRecetasPorEvento(int idEvento);
 
         public void ReservarEvento(Reserva reserva);
+
+        public int ObtenerCantidadDeComensalesReservados(int idEvento);
     }
 }

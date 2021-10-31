@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Servicios.Servicios.Interfaces;
 using _20212C_TP.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace _20212C_TP.Controllers
 {
@@ -36,9 +37,9 @@ namespace _20212C_TP.Controllers
         [Route("[controller]/{idEvento}/reservar")]
         public ActionResult ReservarEvento(int idEvento)
         {
-            if(TempData["errorValidacion"] != null)
+            if(TempData["error"] != null)
             {
-                ViewBag.error = TempData["errorValidacion"];
+                ViewBag.error = TempData["error"];
             }
 
             ViewBag.evento = _eventoServicio.ObtenerEventoPorId(idEvento);
@@ -49,28 +50,31 @@ namespace _20212C_TP.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/{idEvento}/reservar")]
-        public ActionResult ReservarEvento(ReservaViewModel reservaViewModel, int idEvento)
+        [Route("[controller]/reservar-evento")]
+        public ActionResult ReservarEvento(ReservaViewModel reservaViewModel)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    TempData["errorValidacion"] = ModelState.Values;
-                    return Redirect("/comensales/" + idEvento + "/reservar");
+                    ViewBag.evento = _eventoServicio.ObtenerEventoPorId(reservaViewModel.IdEvento);
+
+                    ViewBag.recetas = _comensalServicio.ObtenerRecetasPorEvento(reservaViewModel.IdEvento);
+
+                    return View(reservaViewModel);
                 }
 
                 var idComensal = HttpContext.Session.Get<int>("idUsuario");
 
-                _comensalServicio.ReservarEvento(idEvento, idComensal, reservaViewModel.IdReceta, reservaViewModel.CantidadComensales);
+                _comensalServicio.ReservarEvento(reservaViewModel.IdEvento, idComensal, reservaViewModel.IdReceta, reservaViewModel.CantidadComensales);
 
                 return Redirect("/comensales/reservas");
             }
             catch(Exception e)
             {
-                ViewBag.error = e.Message;
+                TempData["error"] = e.Message;
 
-                return View("Views/Comensales/ReservarEvento.cshtml");
+                return Redirect("/comensales/" + reservaViewModel.IdEvento + "/reservar");
             }
         }
     }

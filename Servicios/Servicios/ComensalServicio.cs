@@ -32,8 +32,9 @@ namespace Servicios.Servicios
         public void ReservarEvento(int idEvento, int idComensal, int idReceta, int cantidadComensales)
         {
             var cantidadComensalesEventoDb = _eventoRepositorio.ObtenerEventoPorId(idEvento).CantidadComensales;
+            var cantidadDeComensalesActualReservados = _comensalRepositorio.ObtenerCantidadDeComensalesReservados(idEvento);
 
-            if ((cantidadComensalesEventoDb + cantidadComensales) > cantidadComensalesEventoDb)
+            if ((cantidadDeComensalesActualReservados + cantidadComensales) > cantidadComensalesEventoDb)
                 throw new Exception("La cantidad de comensales ingresado supera el limite");
 
             Reserva reserva = new Reserva();
