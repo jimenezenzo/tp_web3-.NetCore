@@ -53,6 +53,9 @@ namespace _20212C_TP
             services.AddScoped<IEventoRepositorio, EventoRepositorio>();
             services.AddScoped<IEventoServicio, EventoServicio>();
 
+            services.AddScoped<ITipoRecetaRepositorio, TipoRecetaRepositorio>();
+            services.AddScoped<ITipoRecetaServicio, TipoRecetaServicio>();
+
             services.AddControllersWithViews();
         }
 
