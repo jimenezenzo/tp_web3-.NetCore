@@ -45,6 +45,7 @@ namespace Servicios.Repositorios
         {
             _db.Add(receta);
             _db.SaveChanges();
+            // TODO : Crear controlador para poder cargar tipos de receta. Tambien en FE.
         }
     }
 }

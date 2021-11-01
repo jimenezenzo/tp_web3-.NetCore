@@ -4,30 +4,30 @@
 }
 <link type="text/css" href="/css/Perfil.css" rel="stylesheet">
 
-    <div class="row">
-        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-            <div class="card card-profile shadow bg-default">
-                <div class="row justify-content-center">
-                    <div class="col-lg-3 order-lg-2">
-                        <div class="card-profile-image img-cocinero">
-                            <a href="#">
-                                <img src="@rutaFotoCocinero" asp-append-version="true"/>
-                            </a>
-                        </div>
+<div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow bg-default">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                    <div class="card-profile-image img-cocinero">
+                        <a href="#">
+                            <img src="@rutaFotoCocinero" asp-append-version="true" />
+                        </a>
                     </div>
                 </div>
-                <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 bg-default">
-                    <div class="d-flex justify-content-between">
-                        <a href="#" class="btn btn-sm btn-info mr-4">Cocinero</a>
-                        <a href="/Login/Logout" class="btn btn-sm btn-danger float-right">Cerrar sesion</a>
-                    </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 bg-default">
+                <div class="d-flex justify-content-between">
+                    <a href="#" class="btn btn-sm btn-info mr-4">Cocinero</a>
+                    <a href="/Login/Logout" class="btn btn-sm btn-danger float-right">Cerrar sesion</a>
                 </div>
-                <div class="card-body pt-0 pt-md-4">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card-profile-stats d-flex justify-content-center mt-md-5 text-white">
-                                <div>
-                                    <span class="heading">
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-profile-stats d-flex justify-content-center mt-md-5 text-white">
+                            <div>
+                                <span class="heading">
                                     @if (ViewBag.Recetas != null)
                                     {
                                         @Enumerable.Count(ViewBag.Recetas)
@@ -36,11 +36,11 @@
                                     {
                                         <span>0</span>
                                     }
-                                    </span>
-                                    <span class="description">Recetas</span>
-                                </div>
-                                <div>
-                                    <span class="heading">
+                                </span>
+                                <span class="description">Recetas</span>
+                            </div>
+                            <div>
+                                <span class="heading">
                                     @if (ViewBag.Eventos != null)
                                     {
                                         @Enumerable.Count(ViewBag.Eventos)
@@ -49,82 +49,81 @@
                                     {
                                         <span>0</span>
                                     }
-                                    </span>
-                                    <span class="description">Eventos</span>
-                                </div>
-                                <div>
-                                    <span class="heading">@ViewBag.Usuario.FechaRegistracion.Date.ToString("dd-MM-yyyy")</span>
-                                    <span class="description">Fecha de registro</span>
-                                </div>
+                                </span>
+                                <span class="description">Eventos</span>
+                            </div>
+                            <div>
+                                <span class="heading">@ViewBag.Usuario.FechaRegistracion.Date.ToString("dd-MM-yyyy")</span>
+                                <span class="description">Fecha de registro</span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center text-white">
-                        <h3 class="text-white">
-                           @ViewBag.Usuario.Nombre
-                        </h3>
-                        <div>
-                            @ViewBag.Usuario.Email
-                        </div>
+                </div>
+                <div class="text-center text-white">
+                    <h3 class="text-white">
+                        @ViewBag.Usuario.Nombre
+                    </h3>
+                    <div>
+                        @ViewBag.Usuario.Email
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        
-
-        <div class="row col-xl-8 order-xl-1">
-            <div class="col">
-                <div class="card bg-default shadow">
-                    <div class="card-header bg-transparent border-0">
-                        <h3 class="text-white mb-0">Recetas</h3>
-                    </div>
-                    <div class="table-responsive">
-                        @if (ViewBag.Recetas != null)
-                        {
-                            <table class="table align-items-center table-dark table-flush">
-                                <thead class="thead-dark">
+    <div class="row col-xl-8 order-xl-1">
+        <div class="col">
+            <div class="card bg-default shadow">
+                <div class="card-header bg-transparent border-0">
+                    <h3 class="text-white mb-0">Recetas</h3>
+                    <a class="btn btn-danger" href="/Receta/Crear">Crear nueva receta</a>
+                </div>
+                <div class="table-responsive">
+                    @if (ViewBag.Recetas != null)
+                    {
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">TiempoCoccion</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Ingredientes</th>
+                                    <th scope="col">Tipo de Receta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var receta in ViewBag.Recetas)
+                                {
                                     <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">TiempoCoccion</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Ingredientes</th>
-                                        <th scope="col">Tipo de Receta</th>
+                                        <th scope="row">
+                                            @receta.Nombre
+                                        </th>
+                                        <td>
+                                            @receta.TiempoCoccion Minutos
+                                        </td>
+                                        <td>
+                                            @receta.Descripcion
+                                        </td>
+                                        <td>
+                                            @receta.Ingredientes
+                                        </td>
+                                        <td>
+                                            @receta.IdTipoRecetaNavigation.Nombre
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var receta in ViewBag.Recetas)
-                                    {
-                                        <tr>
-                                            <th scope="row">
-                                                @receta.Nombre
-                                            </th>
-                                            <td>
-                                                @receta.TiempoCoccion Minutos
-                                            </td>
-                                            <td>
-                                                @receta.Descripcion
-                                            </td>
-                                            <td>
-                                                @receta.Ingredientes
-                                            </td>
-                                            <td>
-                                                @receta.IdTipoRecetaNavigation.Nombre
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                        @if (@Enumerable.Count(ViewBag.Recetas) == 0)
-                        {
-                            <h3 class="text-danger text-center">NO se encuentran recetas cargadas</h3>
-                        }
-                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    @if (@Enumerable.Count(ViewBag.Recetas) == 0)
+                    {
+                        <h3 class="text-danger text-center">NO se encuentran recetas cargadas</h3>
+                    }
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+</div> 
 
     <div class="header pt-8 pb-4">
         <div class="container-fluid">
