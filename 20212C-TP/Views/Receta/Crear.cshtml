@@ -1,9 +1,71 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+@model _20212C_TP.Models.RecetaViewModel
+
 <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
+        <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+                <div class="text-center text-muted mb-4">
+                    <small>Complete los datos de la receta</small>
+                </div>
+                <form role="form" asp-controller="Receta" asp-action="Crear" method="post">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                            </div>
+                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingrese nombre de la receta" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                            </div>
+                            <input asp-for="TiempoCoccion" type="number" class="form-control" placeholder="Ingrese tiempo de cocción">
+                        </div>
+                        <span asp-validation-for="TiempoCoccion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                            </div>
+                            <input asp-for="Descripcion" type="text" class="form-control" placeholder="Ingrese descripción">
+                        </div>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                            </div>
+                            <input asp-for="Ingredientes" type="text" class="form-control" placeholder="Ingrese ingredientes">
+                        </div>
+                        <span asp-validation-for="Ingredientes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                            </div>
+                            <input asp-for="IdTipoReceta" type="number" class="form-control" placeholder="Ingrese tipo de receta">
+                        </div>
+                        <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
+                    </div>
+                    @*<input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewBag.Usuario.IdUsuario">*@
+                    <input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewData["idCocinero"]">
 
-        <h1>CREAR RECETA</h1>
-       
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-4">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

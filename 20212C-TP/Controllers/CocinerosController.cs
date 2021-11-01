@@ -22,10 +22,7 @@ namespace _20212C_TP.Controllers
             _recetaServicio = recetaServicio;
             _usuarioServicio = usuarioServicio;
         }
-        public ActionResult Recetas()
-        {
-            return View();
-        }
+
         [HttpGet]
         public ActionResult Eventos()
         {
