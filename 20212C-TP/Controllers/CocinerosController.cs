@@ -104,6 +104,7 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Perfil()
         {
+            _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
             int perfil = HttpContext.Session.Get<int>("perfil");
 
             if (perfil != 2)

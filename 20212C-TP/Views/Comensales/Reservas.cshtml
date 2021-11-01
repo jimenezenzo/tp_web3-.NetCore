@@ -8,11 +8,13 @@
     if(ViewBag.Reservas != null ) {
         @foreach (var reserva in ViewBag.Reservas)
         {
-            if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
-            {
-                comensalesPRoximoEvento = reserva.CantidadComensales;
+            if(ViewBag.EventoProximo != null) {
+                if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
+                {
+                    comensalesPRoximoEvento = reserva.CantidadComensales;
+                }
             }
-            if(reserva.IdEventoNavigation.Estado == 0) {
+            if (reserva.IdEventoNavigation.Estado == 0) {
                 contEventosPendientes++;
             }
             if (reserva.IdEventoNavigation.Estado == 2)

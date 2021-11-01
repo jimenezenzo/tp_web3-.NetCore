@@ -123,5 +123,9 @@ namespace Servicios.Servicios
             return comensal;
         }
 
+        public void CambiarEstadoSegunLaFechaDeHoy()
+        {
+            _eventoRepositorio.CambiarEstadoSegunLaFechaDeHoy();
+        }
     }
 }

@@ -123,5 +123,24 @@ namespace Servicios.Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public void CambiarEstadoSegunLaFechaDeHoy()
+        {
+            List<Evento> eventos = _db.Eventos.ToList();
+
+
+            foreach (Evento evento in eventos)
+            {
+                if(evento.Fecha <= DateTime.Now && evento.Estado == (int)EstadoEvento.PENDIENTE)
+                {
+                    Evento e = new Evento();
+                    e = evento;
+                    e.Estado = 2;
+                    _db.Eventos.Update(e);
+                    _db.SaveChanges();
+                }
+            }
+
+        }
     }
 }
