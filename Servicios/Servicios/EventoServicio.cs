@@ -15,16 +15,19 @@ namespace Servicios.Servicios
         IEventoRepositorio _eventoRepositorio;
         IUsuarioRepositorio _usuarioRepositorio;
         IRecetaRepositorio _recetaRepositorio;
+        IUsuarioServicio _usuarioServicio;
 
         public EventoServicio(
             IEventoRepositorio eventoRepositorio, 
             IUsuarioRepositorio usuarioRepositorio,
-            IRecetaRepositorio recetaRepositorio
+            IRecetaRepositorio recetaRepositorio,
+            IUsuarioServicio usuarioServicio
             )
         {
             _eventoRepositorio = eventoRepositorio;
             _usuarioRepositorio = usuarioRepositorio;
             _recetaRepositorio = recetaRepositorio;
+            _usuarioServicio = usuarioServicio;
         }
 
 
@@ -94,14 +97,24 @@ namespace Servicios.Servicios
         private Usuario ObtenerCocinero(int idCocinero)
         {
             Usuario cocinero = _usuarioRepositorio.ObtenerUsuarioPorId(idCocinero);
-            // TODO: verificar que el usuario sea cocinero
+
+            if (!_usuarioServicio.EsCocinero(cocinero))
+            {
+                throw new Exception("El usuario no es cocinero");
+            }
+
             return cocinero;
         }
 
         private Usuario ObtenerComensal(int idComensal)
         {
             Usuario comensal = _usuarioRepositorio.ObtenerUsuarioPorId(idComensal);
-            // TODO: verificar que el usuario sea comensal
+
+            if (_usuarioServicio.EsCocinero(comensal))
+            {
+                throw new Exception("El usuario no es cocinero");
+            }
+
             return comensal;
         }
 
