@@ -8,6 +8,8 @@ namespace Servicios.Servicios.Interfaces
 {
     public interface IUsuarioServicio
     {
+        public bool EsCocinero(Usuario usuario);
+
         public void registrarUsuario(string nombre, string email, string password, string passwordConfirmar, int perfil);
 
         public Usuario login(string email, string password);
