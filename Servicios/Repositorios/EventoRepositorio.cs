@@ -133,13 +133,10 @@ namespace Servicios.Repositorios
             {
                 if(evento.Fecha <= DateTime.Now && evento.Estado == (int)EstadoEvento.PENDIENTE)
                 {
-                    Evento e = new Evento();
-                    e = evento;
-                    e.Estado = 2;
-                    _db.Eventos.Update(e);
-                    _db.SaveChanges();
+                    evento.Estado = 2;
                 }
             }
+                    _db.SaveChanges();
 
         }
     }
