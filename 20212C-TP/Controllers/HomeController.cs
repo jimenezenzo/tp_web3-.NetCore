@@ -13,14 +13,17 @@ namespace _20212C_TP.Controllers
     public class HomeController : Controller
     {
         private IRecetaServicio _recetaServicio;
+        private IEventoServicio _eventoServicio;
 
-        public HomeController(IRecetaServicio recetaServicio)
+        public HomeController(IRecetaServicio recetaServicio, IEventoServicio eventoServicio)
         {
             _recetaServicio = recetaServicio;
+            _eventoServicio = eventoServicio;
         }
 
         public IActionResult Index()
         {
+            _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
             var recetas = _recetaServicio.ObtenerRecetas();
 
             return View();
