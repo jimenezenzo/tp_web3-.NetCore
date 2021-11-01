@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Servicios.Dominio;
 using Servicios.Entidades;
 using Servicios.Repositorios.Interfaces;
@@ -83,6 +84,11 @@ namespace Servicios.Repositorios
 
             return query.ToList();
         }
+
+        public Evento ObtenerEventoPorId(int idEvento)
+        {
+            return _db.Eventos.FirstOrDefault(e => e.IdEvento.Equals(idEvento));
+        }
         public List<Evento> ObtenerEventosPorComensal(Usuario usuario)
         {
             var query = from reservas in _db.Reservas
@@ -93,7 +99,6 @@ namespace Servicios.Repositorios
             return query.ToList();
         }
 
-        /*(1)*/
         public List<Reserva> ObtenerReservasPorComensal(Usuario usuario)
         {
             var query = from r in _db.Reservas
@@ -114,6 +119,9 @@ namespace Servicios.Repositorios
             return query.ToList();
         }
 
-
+        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

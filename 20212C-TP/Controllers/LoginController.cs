@@ -37,7 +37,7 @@ namespace _20212C_TP.Controllers
                 HttpContext.Session.Set<int>("perfil", usuario.Perfil);
 
                 if (usuario.Perfil == 1)
-                    return Redirect("/comensales/reserva");
+                    return Redirect("/comensales/reservas");
                 else
                     return Redirect("/cocineros/perfil");
             }

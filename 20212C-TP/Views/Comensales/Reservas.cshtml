@@ -1,11 +1,11 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+    Layout = "~/Views/Shared/_LayoutComensal.cshtml";
     var rutaFotoComensal = "~/assets/img/comensal.png";
 
     int contEventosPendientes = 0;
     int contEventosFinalizados = 0;
     int comensalesPRoximoEvento = 0;
-    if(ViewBag.Reservas != null ) { 
+    if(ViewBag.Reservas != null ) {
         @foreach (var reserva in ViewBag.Reservas)
         {
             if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
@@ -286,15 +286,15 @@
                                     <td>
                                         @switch (reserva.IdEventoNavigation.Estado)
                                         {
-                                            case 1:<span class="badge badge-dot">
+                                            case 0:<span class="badge badge-dot">
                                                     <i class="bg-info"></i> Pendiente
                                                 </span>
                                                 break;
-                                            case 2:<span class="badge badge-dot">
+                                            case 1:<span class="badge badge-dot">
                                                     <i class="bg-danger"></i> Cancelado
                                                 </span>
                                                 break;
-                                            case 3:<span class="badge badge-dot">
+                                            case 2:<span class="badge badge-dot">
                                                     <i class="bg-success"></i> Finalizado
                                                 </span>
                                                 break;
@@ -376,6 +376,4 @@
         </div>
     </div>
 </div>
-
-
 

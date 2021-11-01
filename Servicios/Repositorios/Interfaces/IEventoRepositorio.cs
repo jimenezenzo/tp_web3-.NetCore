@@ -29,5 +29,8 @@ namespace Servicios.Repositorios.Interfaces
 
         public List<Evento> ObtenerEventosFinalizadosParaComensal(Usuario usuario);
 
+        public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
+
+        public Evento ObtenerEventoPorId(int idEvento);
     }
 }

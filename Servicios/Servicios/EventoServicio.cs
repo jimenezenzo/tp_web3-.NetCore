@@ -106,6 +106,11 @@ namespace Servicios.Servicios
             return cocinero;
         }
 
+        public Evento ObtenerEventoPorId(int idEvento)
+        {
+            return _eventoRepositorio.ObtenerEventoPorId(idEvento);
+        }
+
         private Usuario ObtenerComensal(int idComensal)
         {
             Usuario comensal = _usuarioRepositorio.ObtenerUsuarioPorId(idComensal);

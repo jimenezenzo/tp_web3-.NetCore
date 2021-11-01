@@ -20,9 +20,9 @@ namespace Servicios.Servicios.Interfaces
 
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
 
+        public Evento ObtenerEventoPorId(int idEvento);
         public List<Evento> ObtenerEventosPorComensal(int idComensal);
 
-        /*(1)*/
         public List<Reserva> ObtenerReservasPorComensal(int idComensal);
     }
 }
