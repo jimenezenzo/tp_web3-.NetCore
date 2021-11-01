@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+    //List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 
 @model _20212C_TP.Models.RecetaViewModel
@@ -57,7 +58,13 @@
                         </div>
                         <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
                     </div>
-                    @*<input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewBag.Usuario.IdUsuario">*@
+
+                    @*<div class="form-group">
+                        @Html.DropDownList("IdTipoReceta", items, "Selecciona algo", new { @class="form-control" })
+
+                        <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
+                    </div>*@
+
                     <input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewData["idCocinero"]">
 
                     <div class="text-center">

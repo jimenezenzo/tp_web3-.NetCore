@@ -56,6 +56,9 @@ namespace _20212C_TP
             services.AddScoped<IComensalRepositorio, ComensalRepositorio>();
             services.AddScoped<IComensalServicio, ComensalServicio>();
 
+            services.AddScoped<ITipoRecetaRepositorio, TipoRecetaRepositorio>();
+            services.AddScoped<ITipoRecetaServicio, TipoRecetaServicio>();
+
             services.AddControllersWithViews();
         }
 
