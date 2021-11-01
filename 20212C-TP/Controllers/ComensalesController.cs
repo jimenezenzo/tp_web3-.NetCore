@@ -25,6 +25,7 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Reserva()
         {
+            _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
             return View(_comensalServicio.ObtenerEventosParaReservar());
         }
         public ActionResult Reservas()

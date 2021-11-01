@@ -8,14 +8,16 @@
     if(ViewBag.Reservas != null ) {
         @foreach (var reserva in ViewBag.Reservas)
         {
-            if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
-            {
-                comensalesPRoximoEvento = reserva.CantidadComensales;
+            if(ViewBag.EventoProximo != null) {
+                if(reserva.IdEvento == ViewBag.EventoProximo.IdEvento)
+                {
+                    comensalesPRoximoEvento = reserva.CantidadComensales;
+                }
             }
-            if(reserva.IdEventoNavigation.Estado == 1) {
+            if (reserva.IdEventoNavigation.Estado == 0) {
                 contEventosPendientes++;
             }
-            if (reserva.IdEventoNavigation.Estado == 3)
+            if (reserva.IdEventoNavigation.Estado == 2)
             {
                 contEventosFinalizados++;
             }
@@ -259,7 +261,7 @@
                         @foreach (var reserva in ViewBag.Reservas)
                         {
                             var rutaFoto = "~/assets/img/evento/" + (reserva.IdEventoNavigation.Foto ?? "default.jpg");
-                            if (reserva.IdEventoNavigation.Estado == 2)
+                            if (reserva.IdEventoNavigation.Estado == 1)
                             {
                                 <tr class="evento-cancelado">
                                     <th scope="row">
@@ -338,15 +340,15 @@
                                     <td>
                                         @switch (reserva.IdEventoNavigation.Estado)
                                         {
-                                            case 1:<span class="badge badge-dot">
+                                            case 0:<span class="badge badge-dot">
                                                     <i class="bg-info"></i> Pendiente
                                                 </span>
                                                 break;
-                                            case 2:<span class="badge badge-dot">
+                                            case 1:<span class="badge badge-dot">
                                                     <i class="bg-danger"></i> Cancelado
                                                 </span>
                                                 break;
-                                            case 3:<span class="badge badge-dot">
+                                            case 2:<span class="badge badge-dot">
                                                     <i class="bg-success"></i> Finalizado
                                                 </span>
                                                 break;
