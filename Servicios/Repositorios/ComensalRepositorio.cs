@@ -20,7 +20,7 @@ namespace Servicios.Repositorios
         public List<Evento> ObtenerEventosParaReservar()
         {
             var query = from e in _db.Eventos.Include("Reservas")
-                        where e.Fecha > DateTime.Now
+                        where e.Fecha > DateTime.Now && e.Estado != 2 && e.Estado != 3
                         select e;
 
             List<Evento> returnEventos = new List<Evento>();

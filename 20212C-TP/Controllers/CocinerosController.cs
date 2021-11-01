@@ -29,8 +29,16 @@ namespace _20212C_TP.Controllers
         [HttpGet]
         public ActionResult Eventos()
         {
-            
-            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
+            int perfil = HttpContext.Session.Get<int>("perfil");
+
+            if (perfil != 2)
+            {
+                return Redirect("/Home/Index");
+            }
+
+            int idComensal = HttpContext.Session.Get<int>("idUsuario");
+
+            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(idComensal);
             
             return View();
         }
@@ -39,9 +47,25 @@ namespace _20212C_TP.Controllers
         {
             try
             {
+                int perfil = HttpContext.Session.Get<int>("perfil");
+
+                if (perfil != 2)
+                {
+                    return Redirect("/Home/Index");
+                }
+
+                int idCocinero = HttpContext.Session.Get<int>("idUsuario");
+
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
+                    ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(idCocinero);
+                    return View("Views/Cocineros/Eventos.cshtml");
+                }
+
+                if (IdRecetas == null || IdRecetas == "")
+                {
+                    ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(idCocinero);
+                    ViewBag.errorReceta = "debe cargar al menos una receta";
                     return View("Views/Cocineros/Eventos.cshtml");
                 }
 
@@ -56,37 +80,48 @@ namespace _20212C_TP.Controllers
                     eventoModel.Foto.CopyTo(new FileStream(rutaDefinitiva, FileMode.Create));
                 }
 
-                
 
                 /*cargar evento*/
-                int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
-                int idEvento=  _eventoServicio.crearUnEvento(2, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, guidImagen, eventoModel.Precio, 1);
+                int idEvento=  _eventoServicio.CrearEvento(idCocinero, eventoModel.Nombre, eventoModel.Fecha, eventoModel.CantidadComensales, eventoModel.Ubicacion, guidImagen, eventoModel.Precio);
+
+
+                /*cargar recetas en el evento*/
 
                 String[] ArrayId = IdRecetas.Split(',');
 
                 _eventoServicio.CrearEventosRecetas(idEvento, ArrayId);
+
+
 
                 TempData["success"] = "Evento creado con exito";
                 return Redirect("/Cocineros/Perfil");
             }
             catch (Exception e)
             {
+                int idCocinero = HttpContext.Session.Get<int>("idUsuario");
                 ViewBag.error = e.Message;
-                ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
+                ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(idCocinero);
                 return View("Views/Cocineros/Eventos.cshtml");
             }
         }
         public ActionResult Perfil()
         {
+            int perfil = HttpContext.Session.Get<int>("perfil");
+
+            if (perfil != 2)
+            {
+                return Redirect("/Home/Index");
+            }
+
             int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
-            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(2);
-            ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(2);
+            ViewBag.Recetas = _recetaServicio.ObtenerRecetasPosCocinero(idCocinero);
+            ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(idCocinero);
+            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorCocinero(idCocinero);
+            ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
+            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idCocinero);
             ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
-            ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximo(2);
-            ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(2);
-            ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(2);
             ViewBag.Cont = 0;
 
 

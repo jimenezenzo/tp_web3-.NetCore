@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Servicios.Entidades;
 
 namespace Servicios.Repositorios.Interfaces
 {
     public interface IRecetaRepositorio
     {
-        public List<Entidades.Receta> ObtenerRecetas();
+        public List<Receta> ObtenerRecetas();
 
-        public List<Entidades.Receta> ObtenerRecetasPorCocinero(int idCocinero);
+        public Receta ObtenerReceta(int idReceta);
 
-        public List<Entidades.TipoReceta> ObtenerTiposDeRecetas();
+        public List<Receta> ObtenerRecetasPorCocinero(Usuario usuario);
+
+        public List<TipoReceta> ObtenerTiposDeRecetas();
     }
 }

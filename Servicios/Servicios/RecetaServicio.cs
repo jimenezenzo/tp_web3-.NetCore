@@ -12,9 +12,11 @@ namespace Servicios.Servicios
     public class RecetaServicio : IRecetaServicio
     {
         private IRecetaRepositorio _recetaRepositorio;
-        public RecetaServicio(IRecetaRepositorio recetaRepositorio)
+        private IUsuarioRepositorio _usuarioRepositorio;
+        public RecetaServicio(IRecetaRepositorio recetaRepositorio, IUsuarioRepositorio usuarioRepositorio)
         {
             _recetaRepositorio = recetaRepositorio;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public List<Entidades.Receta> ObtenerRecetas()
@@ -24,7 +26,9 @@ namespace Servicios.Servicios
 
         public List<Receta> ObtenerRecetasPosCocinero(int idCocinero)
         {
-            return _recetaRepositorio.ObtenerRecetasPorCocinero(idCocinero);
+            Usuario cocinero = _usuarioRepositorio.ObtenerUsuarioPorId(idCocinero);
+            //TODO: verificar que sea cocinero
+            return _recetaRepositorio.ObtenerRecetasPorCocinero(cocinero);
         }
         public List<Entidades.TipoReceta> ObtenerTiposDeRecetas()
         {

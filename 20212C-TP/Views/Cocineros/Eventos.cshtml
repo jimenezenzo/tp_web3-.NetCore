@@ -11,6 +11,12 @@
             <div class="alert alert-danger" role="alert">
                 <strong>Error!</strong> @ViewBag.error
             </div>
+        } 
+        @if (ViewBag.errorReceta != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> @ViewBag.errorReceta
+            </div>
         }
 
         <div class="card bg-secondary shadow border-0">
@@ -94,20 +100,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var receta in ViewBag.Recetas)
+                                            @if (ViewBag.Recetas != null)
                                             {
-                                                <tr>
-                                                    <td>@receta.Nombre</td>
-                                                    <td>@receta.TiempoCoccion</td>
-                                                    <td>@receta.Descripcion</td>
-                                                    <td>@receta.Ingredientes</td>
-                                                    <td>
-                                                        <input type="checkbox" class="valores" value="@receta.IdReceta">
-                                                    </td>
-                                                </tr>
+                                                @foreach (var receta in ViewBag.Recetas)
+                                                {
+                                                    <tr>
+                                                        <td>@receta.Nombre</td>
+                                                        <td>@receta.TiempoCoccion</td>
+                                                        <td>@receta.Descripcion</td>
+                                                        <td>@receta.Ingredientes</td>
+                                                        <td>
+                                                            <input type="checkbox" class="valores" value="@receta.IdReceta">
+                                                        </td>
+                                                    </tr>
+                                                }
                                             }
                                         </tbody>
                                     </table>
+                                    @if (@Enumerable.Count(ViewBag.Recetas) == 0)
+                                    {
+                                        <h3 class="text-danger text-center">NO se encuentran recetas cargadas</h3>
+                                    }
                                 </div>
                             </div>
                         </div>

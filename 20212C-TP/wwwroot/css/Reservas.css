@@ -1,0 +1,10 @@
+﻿.img-evento-comensal {
+    height: 100px;
+    width: auto;
+}
+.img-comensal img {
+    box-shadow: none !important;
+}
+.evento-cancelado{
+    background-color:darkgray;
+}
