@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Servicios.Dominio;
 using Servicios.Entidades;
 using Servicios.Repositorios.Interfaces;
 
@@ -20,7 +21,8 @@ namespace Servicios.Repositorios
         public List<Evento> ObtenerEventosParaReservar()
         {
             var query = from e in _db.Eventos.Include("Reservas")
-                        where e.Fecha > DateTime.Now && e.Estado != 2 && e.Estado != 3
+                        where e.Fecha > DateTime.Now &&
+                        e.Estado != (int)EstadoEvento.CANCELADO && e.Estado != (int)EstadoEvento.FINALIZADO
                         select e;
 
             List<Evento> returnEventos = new List<Evento>();

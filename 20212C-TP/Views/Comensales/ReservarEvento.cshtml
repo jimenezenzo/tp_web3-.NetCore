@@ -16,7 +16,7 @@
                         <span>Ubicacion:</span> @ViewBag.evento.Ubicacion
                     </p>
                     <form action="/comensales/reservar-evento" method="post">
-                        <input asp-for="IdEvento" value="@ViewBag.evento.IdEvento" type="hidden"/>
+                        <input asp-for="IdEvento" value="@ViewBag.evento.IdEvento" type="hidden" />
                         <div class="form-group">
                             <label class="form-control-label">Seleccione la receta</label>
                             <select class="form-control" asp-for="IdReceta">
@@ -30,10 +30,11 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label">Ingrese la cantidad de comensales</label>
-                            <input asp-for="CantidadComensales" value="" class="form-control" placeholder="Ingrese la cantidad de comensales"/>
+                            <input asp-for="CantidadComensales" value="" class="form-control" placeholder="Ingrese la cantidad de comensales" />
                             <span asp-validation-for="CantidadComensales" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Reservar</button>
+                        <a href="/comensales/reserva" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Cancelar</a>
                     </form>
                     <div class="mt-2">
                         @if(ViewBag.error != null)

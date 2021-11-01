@@ -31,6 +31,12 @@ namespace Servicios.Servicios
 
         public void ReservarEvento(int idEvento, int idComensal, int idReceta, int cantidadComensales)
         {
+            if(idReceta == 0)
+                throw new Exception("Tenes que seleccionar una receta");
+
+            if(cantidadComensales == 0)
+                throw new Exception("Tenes que ingresar una cantidad de comensales");
+
             var cantidadComensalesEventoDb = _eventoRepositorio.ObtenerEventoPorId(idEvento).CantidadComensales;
             var cantidadDeComensalesActualReservados = _comensalRepositorio.ObtenerCantidadDeComensalesReservados(idEvento);
 

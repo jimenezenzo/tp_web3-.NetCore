@@ -31,22 +31,18 @@ namespace _20212C_TP.Controllers
         {
             int perfil = HttpContext.Session.Get<int>("perfil");
 
-            if (perfil != 1)
-            {
-                return Redirect("/Home/Index");
-            }
+            //if (perfil != 1)
+            //{
+            //    return Redirect("/Home/Index");
+            //}
 
             int idComensal = HttpContext.Session.Get<int>("idUsuario");
-
-
 
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idComensal);
             ViewBag.Reservas = _eventoServicio.ObtenerReservasPorComensal(idComensal);
             ViewBag.Eventos = _eventoServicio.ObtenerEventosPorComensal(idComensal);
             ViewBag.EventoProximo = _eventoServicio.ObtenerEventoProximoPorComensal(idComensal);
             ViewBag.Recetas = _recetaServicio.ObtenerRecetas();
-
-
 
             return View();
         }

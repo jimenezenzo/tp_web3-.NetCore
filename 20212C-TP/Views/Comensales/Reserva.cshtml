@@ -17,19 +17,17 @@
                         <div class="card-deck">
                             @foreach (var evento in Model)
                             {
-                                <div class="card col-md-4 col-lg-3" style="width: 18rem;">
+                                <div class="card card-stats mb-4 mb-xl-0 bg-default col-md-3 col-lg-4" style="width: 18rem;">
                                     <img class="card-img-top" src="@evento.Foto" alt="Card image cap">
                                     <div class="card-body">
-                                        <h3 class="card-title">@evento.Nombre</h3>
-                                        <p class="card-text">
-                                            Precio: @evento.Precio <br />
+                                        <h3 class="card-title text-uppercase text-muted mb-0">@evento.Nombre</h3>
+                                        <p class="card-text text-white">
+                                            Precio: $@evento.Precio <br />
                                             Ubicacion: @evento.Ubicacion <br />
+                                            Fecha: @evento.Fecha <br />
                                             Disponibilidad: @evento.CantidadComensalesDisponibles
                                         </p>
                                         <a href="/comensales/@evento.IdEvento/reservar" class="btn btn-primary">Reservar</a>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Fecha: @evento.Fecha</small>
                                     </div>
                                 </div>
                             }
