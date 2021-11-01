@@ -40,5 +40,11 @@ namespace Servicios.Repositorios
         {
             return _db.TipoRecetas.ToList();
         }
+
+        public void Crear(Receta receta)
+        {
+            _db.Add(receta);
+            _db.SaveChanges();
+        }
     }
 }
