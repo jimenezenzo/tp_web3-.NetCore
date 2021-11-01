@@ -7,7 +7,7 @@ namespace Servicios.Dominio
 {
     public enum PerfilUsuario : int
     {
-        COCINERO = 1,
-        COMENSAL = 2
+        COMENSAL = 1,
+        COCINERO = 2
     }
 }
