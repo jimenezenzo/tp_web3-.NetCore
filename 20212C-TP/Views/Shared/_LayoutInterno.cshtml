@@ -20,6 +20,7 @@
 
 <body>
     <!-- Sidenav -->
+    @*<partial name="_MenuEspecifico" />*@
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
             <!-- Toggler -->
@@ -109,7 +110,8 @@
                     </div>
                 </form>
                 <!-- Navigation -->
-                <partial name="_MenuPartial"/>
+                @*<partial name="_MenuPartial" />*@
+                <partial name="_MenuEspecifico" />
             </div>
         </div>
     </nav>
@@ -132,7 +134,7 @@
                     </div>
                 </form>
                 <!-- User -->
-                <partial name="_MenuUserPartial"/>
+                <partial name="_MenuUserPartial" />
             </div>
         </nav>
         <!-- Header -->
