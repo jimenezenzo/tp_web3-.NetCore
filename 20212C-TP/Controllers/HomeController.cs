@@ -26,6 +26,8 @@ namespace _20212C_TP.Controllers
             _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
             var recetas = _recetaServicio.ObtenerRecetas();
 
+            ViewBag.EventosFinalizados = _eventoServicio.ObtenerEventosFinalizadosConPuntuacion();
+
             return View();
         }
 

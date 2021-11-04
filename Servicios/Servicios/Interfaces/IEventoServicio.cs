@@ -26,5 +26,7 @@ namespace Servicios.Servicios.Interfaces
         public List<Reserva> ObtenerReservasPorComensal(int idComensal);
 
         public void CambiarEstadoSegunLaFechaDeHoy();
+
+        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion();
     }
 }
