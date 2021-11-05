@@ -24,5 +24,7 @@ namespace Servicios.Servicios.Interfaces
         public List<Evento> ObtenerEventosPorComensal(int idComensal);
 
         public List<Reserva> ObtenerReservasPorComensal(int idComensal);
+
+        public Evento CancelarEvento(int idEvento, int idCocinero);
     }
 }

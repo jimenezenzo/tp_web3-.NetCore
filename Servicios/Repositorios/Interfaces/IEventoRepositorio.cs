@@ -32,5 +32,7 @@ namespace Servicios.Repositorios.Interfaces
         public List<Reserva> ObtenerRecervasDeEventosPorCocinero(int idCocinero);
 
         public Evento ObtenerEventoPorId(int idEvento);
+
+        public Evento ModificarEvento(Evento evento);
     }
 }
