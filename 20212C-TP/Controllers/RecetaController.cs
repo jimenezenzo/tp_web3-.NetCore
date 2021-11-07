@@ -1,5 +1,6 @@
 ﻿using _20212C_TP.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using System;
@@ -13,11 +14,17 @@ namespace _20212C_TP.Controllers
     {
         IRecetaServicio _recetaServicio;
         IUsuarioServicio _usuarioServicio;
+        ITipoRecetaServicio _tipoRecetaServicio;
 
-        public RecetaController(IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio)
+        public RecetaController(
+            IRecetaServicio recetaServicio, 
+            IUsuarioServicio usuarioServicio,
+            ITipoRecetaServicio tipoRecetaServicio
+            )
         {
             _recetaServicio = recetaServicio;
             _usuarioServicio = usuarioServicio;
+            _tipoRecetaServicio = tipoRecetaServicio;
         }
 
         [HttpGet]
@@ -26,19 +33,46 @@ namespace _20212C_TP.Controllers
             int idUsuario = HttpContext.Session.Get<int>("idUsuario");
             ViewData["idCocinero"] = _usuarioServicio.ObtenerUsuarioPorId(idUsuario).IdUsuario;
 
+            ViewBag.TiposReceta = _tipoRecetaServicio.ObtenerTodas();
+
+            /*
+            List<SelectListItem> items = _tipoRecetaServicio.ObtenerTodas().ConvertAll(t =>
+            {
+                return new SelectListItem()
+                {
+                    Text = t.Nombre.ToString(),
+                    Value = t.IdTipoReceta.ToString(),
+                    Selected = false
+                };
+            });
+
+            ViewBag.items = items;*/
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Crear(RecetaViewModel receta)
         {
-            int idUsuario = HttpContext.Session.Get<int>("idUsuario");
 
-            Usuario usuario = _usuarioServicio.ObtenerUsuarioPorId(idUsuario);
+            if (ModelState.IsValid)
+            {
+                int idUsuario = HttpContext.Session.Get<int>("idUsuario");
 
-            _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, receta.IdTipoReceta);
+                Usuario usuario = _usuarioServicio.ObtenerUsuarioPorId(idUsuario);
 
-            return View();
+                _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, receta.IdTipoReceta);
+
+                TempData["MensajeAlert"] = "Receta creada";
+                TempData["ClaseAlert"] = "alert alert-success alert-dismissible fade show";
+
+                return Redirect("/cocineros/perfil");
+            }
+            else
+            {
+                return View(receta);
+            }
+            
         }
     }
 }

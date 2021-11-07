@@ -133,5 +133,31 @@ namespace Servicios.Repositorios
 
             return eventoDb;
         }
+
+        public void CambiarEstadoSegunLaFechaDeHoy()
+        {
+            List<Evento> eventos = _db.Eventos.ToList();
+
+
+            foreach (Evento evento in eventos)
+            {
+                if(evento.Fecha <= DateTime.Now && evento.Estado == (int)EstadoEvento.PENDIENTE)
+                {
+                    evento.Estado = 2;
+                }
+            }
+                    _db.SaveChanges();
+
+        }
+
+        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion()
+        {
+            var query = from evento in _db.Eventos
+                        join calificacion in _db.Calificaciones on evento.IdEvento equals calificacion.IdEvento
+                        where evento.Estado == ((int)EstadoEvento.FINALIZADO)
+                        select new EventoCalificacionViewModel { Calificacion = calificacion.Calificacion, Nombre = evento.Nombre, Precio = evento.Precio};
+
+            return query.ToList();
+        }
     }
 }

@@ -4,6 +4,16 @@
 }
 <link type="text/css" href="/css/Perfil.css" rel="stylesheet">
 
+@if (@TempData["MensajeAlert"] != null && @TempData["MensajeAlert"] !=null)
+{
+<div class="@TempData["ClaseAlert"]" role="alert">
+    <strong>@TempData["MensajeAlert"]</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
 <div class="row">
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
         <div class="card card-profile shadow bg-default">
@@ -123,317 +133,321 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
-    <div class="header pt-8 pb-4">
-        <div class="container-fluid">
-            <div class="header-body">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0 bg-default">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">
-                                            @if (ViewBag.EventoProximo != null)
-                                                @ViewBag.EventoProximo.Fecha
+<div class="header pt-8 pb-4">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                        @if (ViewBag.EventoProximo != null)
+                                            @ViewBag.EventoProximo.Fecha
                                             else
                                             {
                                                 <span> Fecha </span>
                                             }
-                                        </h5>
-                                        <span class="h2 font-weight-bold mb-0 text-white">
-                                            @if (ViewBag.EventoProximo != null)
-                                                @ViewBag.EventoProximo.Nombre
+                                    </h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">
+                                        @if (ViewBag.EventoProximo != null)
+                                            @ViewBag.EventoProximo.Nombre
                                             else
                                             {
                                                 <span class="text-danger">NO se encuentran eventos cargados</span>
                                             }
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                            <i class="far fa-calendar-check"></i>
-                                        </div>
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                        <i class="far fa-calendar-check"></i>
                                     </div>
                                 </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2">
-                                        @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null) {
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2">
+                                    @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null)
+                                    {
+                                        @foreach (var reserva in ViewBag.Reservas)
+                                        {
+                                            if (ViewBag.EventoProximo.IdEvento == reserva.IdEvento)
+                                            {
+                                                ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
+                                            }
+                                        }<span>@ViewBag.Cont&nbsp; / &nbsp;@ViewBag.EventoProximo.CantidadComensales</span>
+                                    }
+                                    else
+                                    {
+                                        <span></span>
+                                    }
+                                </span>
+                                <span class="text-nowrap">
+                                    @if (ViewBag.EventoProximo != null)
+                                    {
+                                        <span>Cantidad de comensales</span>
+                                    }
+                                    else
+                                    {
+                                        <span></span>
+                                    }
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @{ViewBag.Cont = 0;}
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Lugar del evento</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">
+                                        @if (ViewBag.EventoProximo != null)
+                                            @ViewBag.EventoProximo.Ubicacion
+                                            else
+                                            {
+                                                <span class="text-danger">NO se encuentran eventos cargados</span>
+                                            }
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Nombre
+                                        else
+                                        {
+                                            <span></span>
+                                        }
+                                </span>
+                                <span class="text-nowrap">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Fecha
+                                        else
+                                        {
+                                            <span></span>
+                                        }
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Lugares Disponibles</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">
+                                        @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null)
+                                        {
                                             @foreach (var reserva in ViewBag.Reservas)
                                             {
                                                 if (ViewBag.EventoProximo.IdEvento == reserva.IdEvento)
                                                 {
                                                     ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
                                                 }
-                                            }<span>@ViewBag.Cont&nbsp; / &nbsp;@ViewBag.EventoProximo.CantidadComensales</span>
-                                        } else {
-                                            <span></span>
-                                        }
-                                    </span>
-                                    <span class="text-nowrap">
-                                        @if (ViewBag.EventoProximo != null) {
-                                            <span>Cantidad de comensales</span>
+                                            }@(ViewBag.Cont = ViewBag.EventoProximo.CantidadComensales - ViewBag.Cont)
                                         }
                                         else
                                         {
-                                                <span></span>
+                                            <span class="text-danger">NO se encuentran eventos cargados</span>
                                         }
                                     </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    @{ViewBag.Cont = 0;}
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0 bg-default">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Lugar del evento</h5>
-                                        <span class="h2 font-weight-bold mb-0 text-white">
-                                            @if (ViewBag.EventoProximo != null)
-                                                @ViewBag.EventoProximo.Ubicacion
-                                                else
-                                                {
-                                                    <span class="text-danger">NO se encuentran eventos cargados</span>
-                                                }
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                        <i class="fas fa-user"></i>
                                     </div>
                                 </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Nombre
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Nombre
                                         else
                                         {
                                             <span></span>
                                         }
-                                    </span>
-                                    <span class="text-nowrap">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Fecha
+                                </span>
+                                <span class="text-nowrap">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Fecha
                                         else
                                         {
                                             <span></span>
                                         }
-                                    </span>
-                                </p>
-                            </div>
+                                </span>
+                            </p>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0 bg-default">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Lugares Disponibles</h5>
-                                        <span class="h2 font-weight-bold mb-0 text-white">
-                                            @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null)
-                                            {
-                                                @foreach (var reserva in ViewBag.Reservas)
-                                                {
-                                                    if (ViewBag.EventoProximo.IdEvento == reserva.IdEvento)
-                                                    {
-                                                        ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
-                                                    }
-                                                }@(ViewBag.Cont = ViewBag.EventoProximo.CantidadComensales - ViewBag.Cont)
-                                            }
-                                            else
-                                            {
-                                                <span class="text-danger">NO se encuentran eventos cargados</span>
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Nombre
-                                            else
-                                            {
-                                                <span></span>
-                                            }
-                                    </span>
-                                    <span class="text-nowrap">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Fecha
-                                            else
-                                            {
-                                                <span></span>
-                                            }
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    @{ViewBag.Cont = 0;}
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0 bg-default">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Recaudado</h5>
-                                        <span class="h2 font-weight-bold mb-0 text-white">
-                                            
-                                            @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null)
-                                            {
-                                                @foreach (var reserva in ViewBag.Reservas)
-                                                {
-                                                    if (ViewBag.EventoProximo.IdEvento == reserva.IdEvento)
-                                                    {
-                                                        ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
-                                                    }
-                                                }<span>$@(ViewBag.Cont = ViewBag.Cont * ViewBag.EventoProximo.Precio)</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-danger">NO se encuentran eventos cargados</span>
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                                            <i class="fas fa-dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Nombre
-                                            else
-                                            {
-                                                <span></span>
-                                            }
-                                    </span>
-                                    <span class="text-nowrap">
-                                        @if (ViewBag.EventoProximo != null)
-                                            @ViewBag.EventoProximo.Fecha
-                                            else
-                                            {
-                                                <span></span>
-                                            }
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    @{ViewBag.Cont = 0;}
                 </div>
+                @{ViewBag.Cont = 0;}
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0 bg-default">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Recaudado</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">
+
+                                        @if (ViewBag.Reservas != null && ViewBag.EventoProximo != null)
+                                        {
+                                            @foreach (var reserva in ViewBag.Reservas)
+                                            {
+                                                if (ViewBag.EventoProximo.IdEvento == reserva.IdEvento)
+                                                {
+                                                    ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
+                                                }
+                                            }<span>$@(ViewBag.Cont = ViewBag.Cont * ViewBag.EventoProximo.Precio)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">NO se encuentran eventos cargados</span>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Nombre
+                                        else
+                                        {
+                                            <span></span>
+                                        }
+                                </span>
+                                <span class="text-nowrap">
+                                    @if (ViewBag.EventoProximo != null)
+                                        @ViewBag.EventoProximo.Fecha
+                                        else
+                                        {
+                                            <span></span>
+                                        }
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @{ViewBag.Cont = 0;}
             </div>
         </div>
     </div>
+</div>
 
-        <div class="row">
-            <div class="col">
-                <div class="card shadow bg-default">
-                    <div class="card-header bg-transparent border-0">
-                        <h3 class="mb-0 text-white">Eventos</h3>
-                    </div>
-                    <div class="table-responsive">
-                        @if (ViewBag.Eventos != null)
-                        {
-                            <table class="table align-items-center table-dark table-flush">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Evento</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Cantidad de Comensales</th>
-                                        <th scope="col">Ubicacion</th>
-                                        <th scope="col">Precio</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var evento in ViewBag.Eventos)
-                                    {
-                                        var rutaFoto = "~/assets/img/evento/" + (evento.Foto ?? "default.jpg");
-                                        <tr>
-                                            <th scope="row">
-                                                <div class="media align-items-center">
-                                                    <img class="card-img img-evento-cocinero" src="@rutaFoto" asp-append-version="true" />
+<div class="row">
+    <div class="col">
+        <div class="card shadow bg-default">
+            <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0 text-white">Eventos</h3>
+            </div>
+            <div class="table-responsive">
+                @if (ViewBag.Eventos != null)
+                {
+                    <table class="table align-items-center table-dark table-flush">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Evento</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cantidad de Comensales</th>
+                                <th scope="col">Ubicacion</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var evento in ViewBag.Eventos)
+                            {
+                                var rutaFoto = "~/assets/img/evento/" + (evento.Foto ?? "default.jpg");
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <img class="card-img img-evento-cocinero" src="@rutaFoto" asp-append-version="true" />
 
-                                                    <div class="media-body">
-                                                        <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@evento.Nombre</span>
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <td>
-                                                @evento.Fecha
-                                            </td>
-                                            <td>
-                                                @if (ViewBag.Reservas != null)
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@evento.Nombre</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        @evento.Fecha
+                                    </td>
+                                    <td>
+                                        @if (ViewBag.Reservas != null)
+                                        {
+                                            @foreach (var reserva in ViewBag.Reservas)
+                                            {
+                                                if (evento.IdEvento == reserva.IdEvento)
                                                 {
-                                                    @foreach (var reserva in ViewBag.Reservas)
-                                                    {
-                                                        if (evento.IdEvento == reserva.IdEvento)
-                                                        {
-                                                            ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
-                                                        }
-                                                    }
-                                                    <span>  @ViewBag.Cont / @evento.CantidadComensales</span>
+                                                    ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
+
                                                 }
-                                                else
-                                                {
-                                                    <span> 0 / @evento.CantidadComensales</span>
-                                                }
-                                            </td>
-                                            <td>
-                                                @evento.Ubicacion
-                                            </td>
-                                            <td>
-                                                $ @evento.Precio
-                                            </td>
-                                            <td>
-                                                @switch (@evento.Estado)
-                                                {
-                                                    case 1:<span class="badge badge-dot">
-                                                            <i class="bg-info"></i> Pendiente
-                                                        </span>
-                                                        break;
-                                                    case 2:<span class="badge badge-dot">
-                                                            <i class="bg-danger"></i> Cancelado
-                                                        </span>
-                                                        break;
-                                                    case 3:<span class="badge badge-dot">
-                                                            <i class="bg-success"></i> Finalizado
-                                                        </span>
-                                                        break;
-                                                }
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="#">Cancelar Evento</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            @{ViewBag.Cont = 0;}
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        } @if (@Enumerable.Count(ViewBag.Eventos) == 0)
-                        {
-                            <h3 class="text-danger text-center">NO se encuentran eventos cargados</h3>
-                        }
-                    </div>
-                </div>
+                                            }
+                                            <span>  @ViewBag.Cont / @evento.CantidadComensales</span>
+                                        }
+                                        else
+                                        {
+                                            <span> 0 / @evento.CantidadComensales</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @evento.Ubicacion
+                                    </td>
+                                    <td>
+                                        $ @evento.Precio
+                                    </td>
+                                    <td>
+                                        @switch (@evento.Estado)
+                                        {
+                                            case 1:<span class="badge badge-dot">
+                                                    <i class="bg-info"></i> Pendiente
+                                                </span>
+                                                break;
+                                            case 2:<span class="badge badge-dot">
+                                                    <i class="bg-danger"></i> Cancelado
+                                                </span>
+                                                break;
+                                            case 3:<span class="badge badge-dot">
+                                                    <i class="bg-success"></i> Finalizado
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item" href="#">Cancelar Evento</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    @{ViewBag.Cont = 0;}
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                } @if (@Enumerable.Count(ViewBag.Eventos) == 0)
+                {
+                    <h3 class="text-danger text-center">NO se encuentran eventos cargados</h3>
+                }
             </div>
         </div>
-   
+    </div>
+</div>

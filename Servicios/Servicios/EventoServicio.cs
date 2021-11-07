@@ -123,6 +123,7 @@ namespace Servicios.Servicios
             return comensal;
         }
 
+<<<<<<< HEAD
         public Evento CancelarEvento(int idEvento, int idCocinero)
         {
             Evento evento = _eventoRepositorio.ObtenerEventoPorId(idEvento);
@@ -142,6 +143,16 @@ namespace Servicios.Servicios
             evento.Estado = (int)EstadoEvento.CANCELADO;
 
             return _eventoRepositorio.ModificarEvento(evento); 
+=======
+        public void CambiarEstadoSegunLaFechaDeHoy()
+        {
+            _eventoRepositorio.CambiarEstadoSegunLaFechaDeHoy();
+        }
+
+        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion()
+        {
+           return _eventoRepositorio.ObtenerEventosFinalizadosConPuntuacion();
+>>>>>>> master
         }
     }
 }
