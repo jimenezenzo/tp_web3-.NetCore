@@ -414,15 +414,15 @@
                                     <td>
                                         @switch (@evento.Estado)
                                         {
-                                            case 1:<span class="badge badge-dot">
+                                            case (int)Servicios.Dominio.EstadoEvento.PENDIENTE:<span class="badge badge-dot">
                                                     <i class="bg-info"></i> Pendiente
                                                 </span>
                                                 break;
-                                            case 2:<span class="badge badge-dot">
+                                            case (int)Servicios.Dominio.EstadoEvento.CANCELADO:<span class="badge badge-dot">
                                                     <i class="bg-danger"></i> Cancelado
                                                 </span>
                                                 break;
-                                            case 3:<span class="badge badge-dot">
+                                            case (int)Servicios.Dominio.EstadoEvento.FINALIZADO:<span class="badge badge-dot">
                                                     <i class="bg-success"></i> Finalizado
                                                 </span>
                                                 break;
@@ -430,16 +430,42 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="#">Cancelar Evento</a>
-                                            </div>
+                                            @if (@evento.Estado == (int)Servicios.Dominio.EstadoEvento.PENDIENTE)
+                                            {
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#evento-@evento.IdEvento">Cancelar Evento</a>
+                                                </div>
+
+                                                <div class="modal fade" id="evento-@evento.IdEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="alert alert-warning" role="alert">
+                                                                    Estas seguro que deseas cancelar el evento @evento.Nombre ?
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                <button type="button" class="btn btn-primary" onclick="cancelarEvento(@evento.IdEvento, @ViewBag.IdCocinero)">Confirmar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
                                     </td>
                                     @{ViewBag.Cont = 0;}
                                 </tr>
+
                             }
                         </tbody>
                     </table>
@@ -451,3 +477,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/Eventos.js" asp-append-version="true"></script>

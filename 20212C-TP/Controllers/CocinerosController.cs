@@ -120,6 +120,7 @@ namespace _20212C_TP.Controllers
             ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idCocinero);
             ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
+            ViewBag.IdCocinero = idCocinero;
             ViewBag.Cont = 0;
 
 

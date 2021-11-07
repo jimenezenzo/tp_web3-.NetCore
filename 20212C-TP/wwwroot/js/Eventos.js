@@ -1,18 +1,24 @@
-﻿document.addEventListener("DOMContentLoaded", function (event) {
+﻿const uri = 'https://localhost:44301/api/Evento/cancelar';
 
-    var boton = document.getElementById('boton');
-    var input = document.getElementById('idRecetas');
-    var checks = document.querySelectorAll('.valores');
+function cancelarEvento(idEvento, idCocinero) {
+    console.log('Evento a cancelar: ' + idEvento, 'Id de cocinero: ' + idCocinero)
 
-    boton.addEventListener('click', function () {
-        input.value = '';
-        checks.forEach((e) => {
-            if (e.checked == true) {
-                input.value = e.value + ',' + input.value;
+    const item = {
+        idEvento: idEvento,
+        idCocinero: idCocinero
+    };
 
-            }
-
-        })
-    });
-
-});
+    fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => console.error('Error al cancelar evento.', error));
+}
