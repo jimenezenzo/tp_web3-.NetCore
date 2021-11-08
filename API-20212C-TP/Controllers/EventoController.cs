@@ -1,11 +1,14 @@
 ﻿using _20212C_TP.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace API_20212C_TP.Controllers
@@ -31,7 +34,7 @@ namespace API_20212C_TP.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, new { message = e.Message });
             }
         }
     }
