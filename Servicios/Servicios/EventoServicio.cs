@@ -123,6 +123,27 @@ namespace Servicios.Servicios
             return comensal;
         }
 
+        public Evento CancelarEvento(int idEvento, int idCocinero)
+        {
+            Evento evento = _eventoRepositorio.ObtenerEventoPorId(idEvento);
+
+            if (evento == null)
+                throw new Exception("El evento no existe");
+
+            if (evento.Estado == (int)EstadoEvento.CANCELADO)
+                throw new Exception("El evento ya se ha cancelado");
+
+            if (evento.IdCocinero != idCocinero)
+                throw new Exception("No tenes autorizacion para cancelar este evento");
+
+            if ((evento.Fecha - DateTime.Now).Days < 1)
+                throw new Exception("No podes cancelar este evento por la fecha");
+
+            evento.Estado = (int)EstadoEvento.CANCELADO;
+
+            return _eventoRepositorio.ModificarEvento(evento);
+        }
+
         public void CambiarEstadoSegunLaFechaDeHoy()
         {
             _eventoRepositorio.CambiarEstadoSegunLaFechaDeHoy();

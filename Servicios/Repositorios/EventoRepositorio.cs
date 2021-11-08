@@ -124,6 +124,16 @@ namespace Servicios.Repositorios
             throw new NotImplementedException();
         }
 
+        public Evento ModificarEvento(Evento evento)
+        {
+            Evento eventoDb = _db.Eventos.Find(evento.IdEvento);
+            eventoDb.Estado = evento.Estado;
+
+            _db.SaveChanges();
+
+            return eventoDb;
+        }
+
         public void CambiarEstadoSegunLaFechaDeHoy()
         {
             List<Evento> eventos = _db.Eventos.ToList();

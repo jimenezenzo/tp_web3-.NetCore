@@ -120,6 +120,7 @@ namespace _20212C_TP.Controllers
             ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idCocinero);
             ViewBag.TipodeReceta = _recetaServicio.ObtenerTiposDeRecetas();
+            ViewBag.IdCocinero = idCocinero;
             ViewBag.Cont = 0;
 
 
@@ -127,6 +128,20 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Cancelacion()
         {
+            int perfil = HttpContext.Session.Get<int>("perfil");
+
+            if (perfil != 2)
+            {
+                return Redirect("/Home/Index");
+            }
+
+            int idCocinero = HttpContext.Session.Get<int>("idUsuario");
+
+            ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(idCocinero);
+            ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
+            ViewBag.IdCocinero = idCocinero;
+            ViewBag.Cont = 0;
+
             return View();
         }
     }

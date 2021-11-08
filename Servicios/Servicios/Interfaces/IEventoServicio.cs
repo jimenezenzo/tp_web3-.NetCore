@@ -25,6 +25,7 @@ namespace Servicios.Servicios.Interfaces
 
         public List<Reserva> ObtenerReservasPorComensal(int idComensal);
 
+        public Evento CancelarEvento(int idEvento, int idCocinero);
         public void CambiarEstadoSegunLaFechaDeHoy();
 
         public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion();
