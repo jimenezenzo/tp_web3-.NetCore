@@ -56,16 +56,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                             </div>
-                            <input asp-for="IdTipoReceta" type="number" class="form-control" placeholder="Ingrese tipo de receta">
+                            <select asp-for="IdTipoReceta" asp-items="@ViewBag.TiposReceta" class="form-control"></select>
                         </div>
                         <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
                     </div>
-
-                    @*<div class="form-group">
-                        @Html.DropDownList("IdTipoReceta", items, "Selecciona algo", new { @class="form-control" })
-
-                        <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
-                    </div>*@
 
                     <input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewData["idCocinero"]">
 

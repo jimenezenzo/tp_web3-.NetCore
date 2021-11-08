@@ -33,9 +33,10 @@ namespace _20212C_TP
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(60);
+                options.IdleTimeout = TimeSpan.FromHours(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+                options.Cookie.Name = ".TPWEB3.Session";
             });
 
             services.AddDbContext<Servicios.Entidades._20212C_TPContext>(options =>
