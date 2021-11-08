@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,6 +59,8 @@ namespace _20212C_TP
 
             services.AddScoped<ITipoRecetaRepositorio, TipoRecetaRepositorio>();
             services.AddScoped<ITipoRecetaServicio, TipoRecetaServicio>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews();
         }

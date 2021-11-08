@@ -1,0 +1,57 @@
+﻿@{
+    @using Microsoft.AspNetCore.Http
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+    var perfilUsuario = Convert.ToInt32(@HttpContextAccessor.HttpContext.Session.GetString("perfil"));
+    var cocinero = (int)Servicios.Dominio.PerfilUsuario.COCINERO;
+    var comensal = (Int32)Servicios.Dominio.PerfilUsuario.COMENSAL;
+}
+
+@if (perfilUsuario == comensal)
+{
+
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="comensales" asp-action="reserva">
+                <i class="far fa-calendar-check text-primary"></i> Reservar evento
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="comensales" asp-action="reservas">
+                <i class="far fa-calendar-alt text-primary"></i> Mis eventos y reservas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="comensales" asp-action="comentarios">
+                <i class="fas fa-star-half-alt text-primary"></i> Puntuar y comentar eventos finalizados
+            </a>
+        </li>
+    </ul>
+}
+
+@if (perfilUsuario == cocinero)
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="receta" asp-action="crear">
+                <i class="far fa-calendar-alt text-primary"></i> Crear evento de comida
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="receta" asp-action="crear">
+                <i class="fas fa-utensils text-primary"></i> Crear recetas de cocina
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="receta" asp-action="crear">
+                <i class="fas fa-user-circle text-primary"></i> Perfil con detalle de eventos y reservas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="receta" asp-action="crear">
+                <i class="fas fa-calendar-times text-red"></i> Cancelar eventos
+            </a>
+        </li>
+    </ul>
+
+}
