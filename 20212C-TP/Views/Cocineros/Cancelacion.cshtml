@@ -1,87 +1,135 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+    Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
+    var rutaFotoCocinero = "~/assets/img/cocinero.png";
 }
 
 <div class="row">
     <div class="col">
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Cancelacion</h3>
+        <div class="card shadow bg-default">
+            <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0 text-white">Eventos</h3>
             </div>
             <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Project</th>
-                            <th scope="col">Budget</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Users</th>
-                            <th scope="col">Completion</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <div class="media align-items-center">
-                                    <a href="#" class="avatar rounded-circle mr-3">
-                                        <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                    </a>
-                                    <div class="media-body">
-                                        <span class="mb-0 text-sm">Argon Design System</span>
-                                    </div>
-                                </div>
-                            </th>
-                            <td>
-                                $2,500 USD
-                            </td>
-                            <td>
-                                <span class="badge badge-dot mr-4">
-                                    <i class="bg-warning"></i> pending
-                                </span>
-                            </td>
-                            <td>
-                                <div class="avatar-group">
-                                    <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-1-800x800.jpg" class="rounded-circle">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-2-800x800.jpg" class="rounded-circle">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-3-800x800.jpg" class="rounded-circle">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                                    </a>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <span class="mr-2">60%</span>
-                                    <div>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                @if (ViewBag.Eventos != null)
+                {
+                    <table class="table align-items-center table-dark table-flush">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Evento</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cantidad de Comensales</th>
+                                <th scope="col">Ubicacion</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var evento in ViewBag.Eventos)
+                            {
+                                var rutaFoto = "~/assets/img/evento/" + (evento.Foto ?? "default.jpg");
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <img class="card-img img-evento-cocinero" src="@rutaFoto" asp-append-version="true" />
+
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">&nbsp;&nbsp;&nbsp;@evento.Nombre</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-right">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    </th>
+                                    <td>
+                                        @evento.Fecha
+                                    </td>
+                                    <td>
+                                        @if (ViewBag.Reservas != null)
+                                        {
+                                            @foreach (var reserva in ViewBag.Reservas)
+                                            {
+                                                if (evento.IdEvento == reserva.IdEvento)
+                                                {
+                                                    ViewBag.Cont = ViewBag.Cont + reserva.CantidadComensales;
+
+                                                }
+                                            }
+                                            <span>  @ViewBag.Cont / @evento.CantidadComensales</span>
+                                        }
+                                        else
+                                        {
+                                            <span> 0 / @evento.CantidadComensales</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @evento.Ubicacion
+                                    </td>
+                                    <td>
+                                        $ @evento.Precio
+                                    </td>
+                                    <td>
+                                        @switch (@evento.Estado)
+                                        {
+                                            case (int)Servicios.Dominio.EstadoEvento.PENDIENTE:<span class="badge badge-dot">
+                                                    <i class="bg-info"></i> Pendiente
+                                                </span>
+                                                break;
+                                            case (int)Servicios.Dominio.EstadoEvento.CANCELADO:<span class="badge badge-dot">
+                                                    <i class="bg-danger"></i> Cancelado
+                                                </span>
+                                                break;
+                                            case (int)Servicios.Dominio.EstadoEvento.FINALIZADO:<span class="badge badge-dot">
+                                                    <i class="bg-success"></i> Finalizado
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            @if (@evento.Estado == (int)Servicios.Dominio.EstadoEvento.PENDIENTE)
+                                            {
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#evento-@evento.IdEvento">Cancelar Evento</a>
+                                                </div>
+
+                                                <div class="modal fade" id="evento-@evento.IdEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">@evento.Nombre</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="alert alert-warning" role="alert">
+                                                                    <p>Estas seguro que deseas cancelar el evento @evento.Nombre ?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                <button type="button" class="btn btn-primary" onclick="cancelarEvento(@evento.IdEvento, @ViewBag.IdCocinero)">Confirmar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                    @{ViewBag.Cont = 0;}
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                } @if (@Enumerable.Count(ViewBag.Eventos) == 0)
+                {
+                    <h3 class="text-danger text-center">NO se encuentran eventos cargados</h3>
+                }
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/js/Eventos.js" asp-append-version="true"></script>
