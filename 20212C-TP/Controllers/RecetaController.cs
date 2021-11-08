@@ -33,7 +33,7 @@ namespace _20212C_TP.Controllers
             int idUsuario = HttpContext.Session.Get<int>("idUsuario");
             ViewData["idCocinero"] = _usuarioServicio.ObtenerUsuarioPorId(idUsuario).IdUsuario;
 
-            ViewBag.TiposReceta = _tipoRecetaServicio.ObtenerTodas();
+            ViewBag.TiposReceta =  new SelectList(_tipoRecetaServicio.ObtenerTodas(), "IdTipoReceta", "Nombre");
 
             /*
             List<SelectListItem> items = _tipoRecetaServicio.ObtenerTodas().ConvertAll(t =>
