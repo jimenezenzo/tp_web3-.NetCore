@@ -30,7 +30,8 @@ INSERT INTO	dbo.Eventos (IdCocinero, Nombre, Fecha, CantidadComensales, Ubicacio
 VALUES	(2, 'Evento de veganos y vegetarianos', '2021-10-09 20:00:00.200', 30, 'Hotel Recoleta Grand', 'fotoevento1.jpg', 1500, 2),
 		(4, 'Evento de gauchos', '2021-12-12 21:00:00.200', 30, 'Estancia Las Heras', 'fotoevento2.jpg', 2000, 0),
 		(4, 'Cumpleaños de un tipo famoso', '2021-09-09 20:00:00.200', 30, 'Florencio Varela 1903', 'fotoevento3.jpg', 0, 1),
-		(2, 'Aniversario en Municipalidad de La Matanza', '2021-09-09 20:00:00.200', 50, 'Club Social y Deportivo La Matanza', 'fotoevento4.jpg', 25, 2);
+		(2, 'Aniversario en Municipalidad de La Matanza', '2021-09-09 20:00:00.200', 50, 'Club Social y Deportivo La Matanza', 'fotoevento4.jpg', 25, 2),
+		(2, 'Evento de Fin de Año', '2021-12-12 20:00:00.200', 10, 'Hotel Los Dos Hermanos', 'fotoevento5.jpg', 1500, 0);
 
 INSERT INTO DBO.EventosRecetas(IdEvento, IdReceta)
 VALUES	(1, 1),
@@ -75,3 +76,10 @@ VALUES	(1, 1, 10, 'Muy bueno todo'),
 		(4, 9, 10, 'Excelente'),
 		(4, 5, 7, 'Bien'),
 		(4, 6, 10, 'Epicardo');
+
+
+
+
+INSERT INTO	dbo.Eventos (IdCocinero, Nombre, Fecha, CantidadComensales, Ubicacion, Foto, Precio, Estado)
+VALUES	(2, 'Evento de asdasdsa', '2021-12-12 20:00:00.200', 10, 'Hotel asd Grand', 'fotoevento1.jpg', 1500, 0),
+		(4, 'Evento de asdasddddddd', '2021-12-12 21:00:00.200', 15, 'Estancia Las asd', 'fotoevento2.jpg', 2000, 0);
