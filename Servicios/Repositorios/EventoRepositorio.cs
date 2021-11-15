@@ -157,7 +157,7 @@ namespace Servicios.Repositorios
             var query = from evento in _db.Eventos
                         join calificacion in _db.Calificaciones on evento.IdEvento equals calificacion.IdEvento
                         where evento.Estado == ((int)EstadoEvento.FINALIZADO)
-                        select new EventoCalificacionViewModel { Calificacion = calificacion.Calificacion, Fecha = evento.Fecha, Foto = evento.Foto, Nombre = evento.Nombre, Precio = evento.Precio };
+                        select new EventoCalificacionViewModel { Calificacion = calificacion.Calificacion, Fecha = evento.Fecha, Foto = evento.Foto, IdEvento = evento.IdEvento, Nombre = evento.Nombre, Precio = evento.Precio };
 
             return query.OrderByDescending(ec => ec.Fecha).Take(numeroDeRegistros).ToList();
         }
