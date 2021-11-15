@@ -13,10 +13,16 @@
                     <div class="text-center text-muted">
                         <ul class="list-group">
                             <li class="list-group-item">@eventoFinalizado.Precio</li>
-                            <li class="list-group-item">@eventoFinalizado.Calificacion</li>
+                            <li class="list-group-item">
+
+                                @for (int i = 0; i < @eventoFinalizado.Calificacion; i++)
+                                {
+                                    <img src="/img/star.png" />
+
+                                }
+
+                            </li>
                         </ul>
-                        @*<h4>Precio: @eventoFinalizado.Precio</h4>
-                            <h4>Calificación: @eventoFinalizado.Calificacion</h4>*@
                     </div>
                 </div>
             </div>
