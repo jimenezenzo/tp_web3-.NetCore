@@ -1,0 +1,12 @@
+﻿<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="card bg-secondary shadow border-0">
+            <h1>Detalle evento</h1>
+            @foreach (Servicios.Entidades.Calificacione calificacion in ViewBag.Calificaciones)
+            {
+                <h5>@calificacion.Calificacion</h5>
+                <h5>@calificacion.Comentarios</h5>
+            }
+        </div>
+    </div>
+</div>
