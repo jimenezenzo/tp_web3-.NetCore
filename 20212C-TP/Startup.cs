@@ -61,6 +61,9 @@ namespace _20212C_TP
             services.AddScoped<ITipoRecetaRepositorio, TipoRecetaRepositorio>();
             services.AddScoped<ITipoRecetaServicio, TipoRecetaServicio>();
 
+            services.AddScoped<ICalificacionesRepositorio, CalificacionesRepositorio>();
+            services.AddScoped<ICalificacionesServicio, CalificacionesServicio>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews();
