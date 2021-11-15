@@ -4,20 +4,22 @@
 
 <div class="row justify-content-start">
 
-    @foreach (var eventoFinalizado in ViewBag.EventosFinalizados)
+    @foreach (Servicios.Entidades.EventoCalificacionViewModel eventoFinalizado in ViewBag.EventosFinalizados)
     {
         <div class="col-md-3 col-lg-4 mb-2">
             <div class="card bg-secondary border-2">
-                <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                        <h2>Evento finalizado</h2>
-                        <h4>Precio: @eventoFinalizado.Nombre</h4>
-                        <h4>Precio: @eventoFinalizado.Precio</h4>
-                        <h4>Precio: @eventoFinalizado.Calificacion</h4>
+                <img class="card-image-custom" src="/img/@eventoFinalizado.Foto" alt="@eventoFinalizado.Foto" />
+                <div class="card-body m-0 p-0">
+                    <div class="text-center text-muted">
+                        <ul class="list-group">
+                            <li class="list-group-item">@eventoFinalizado.Precio</li>
+                            <li class="list-group-item">@eventoFinalizado.Calificacion</li>
+                        </ul>
+                        @*<h4>Precio: @eventoFinalizado.Precio</h4>
+                            <h4>Calificación: @eventoFinalizado.Calificacion</h4>*@
                     </div>
                 </div>
             </div>
         </div>
     }
-
 </div>
