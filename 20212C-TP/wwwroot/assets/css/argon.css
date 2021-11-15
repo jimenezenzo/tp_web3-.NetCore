@@ -8241,11 +8241,14 @@ button.bg-darker:focus
     border-radius: 0 !important;
 }
 
-.clearfix::after
-{
+.card-image-custom{
+    height: 250px;
+    width: inherit;
+}
+
+.clearfix::after {
     display: block;
     clear: both;
-
     content: '';
 }
 
