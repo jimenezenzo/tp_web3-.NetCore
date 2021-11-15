@@ -64,22 +64,20 @@ VALUES	(1, 1, 1, 2, '2021-09-09 20:00:00.200'),
 		(4, 6, 3, 7, '2021-09-08 20:00:00.200');
 
 INSERT INTO dbo.Calificaciones (IdEvento, IdComensal, Calificacion, Comentarios)
-VALUES	(1, 1, 10, 'Muy bueno todo'),
-		(2, 1, 5, 'Medio pelo'),
-		(3, 3, 6, 'Masomeno'),
-		(4, 1, 8, 'Zarpada la comida'),
+VALUES	(1, 1, 5, 'Muy bueno todo'),
+		(2, 1, 3, 'Medio pelo'),
+		(3, 3, 4, 'Masomeno'),
+		(4, 1, 4, 'Zarpada la comida'),
 		(1, 3, 1, 'Malisimo'),
-		(2, 6, 9, 'Buenardo'),
-		(1, 8, 3, 'Buena la comida, malo el servicio'),
-		(2, 8, 6, 'Bueno, pero no tanto'),
-		(3, 9, 7, 'Todo muy bien'),
-		(4, 9, 10, 'Excelente'),
-		(4, 5, 7, 'Bien'),
-		(4, 6, 10, 'Epicardo');
-
-
+		(2, 6, 5, 'Buenardo'),
+		(1, 8, 2, 'Buena la comida, malo el servicio'),
+		(2, 8, 3, 'Bueno, pero no tanto'),
+		(3, 9, 4, 'Todo muy bien'),
+		(4, 9, 5, 'Excelente'),
+		(4, 5, 4, 'Bien'),
+		(4, 6, 5, 'Epicardo');
 
 
 INSERT INTO	dbo.Eventos (IdCocinero, Nombre, Fecha, CantidadComensales, Ubicacion, Foto, Precio, Estado)
-VALUES	(2, 'Evento de asdasdsa', '2021-12-12 20:00:00.200', 10, 'Hotel asd Grand', 'fotoevento1.jpg', 1500, 0),
-		(4, 'Evento de asdasddddddd', '2021-12-12 21:00:00.200', 15, 'Estancia Las asd', 'fotoevento2.jpg', 2000, 0);
+VALUES	(2, 'Evento Grand', '2021-12-12 20:00:00.200', 10, 'Hotel Grand', 'fotoevento6.jpg', 1500, 0),
+		(4, 'Evento Las Olivias', '2021-12-12 21:00:00.200', 15, 'Estancia Las Olivias', 'fotoevento7.jpg', 2000, 0);
