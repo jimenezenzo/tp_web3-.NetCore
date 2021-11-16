@@ -14,20 +14,28 @@ namespace _20212C_TP.Controllers
     {
         IEventoServicio _eventoServicio;
         ICalificacionesServicio _calificacionesServicio;
+        IEventoCocineroServicio _eventoCocineroServicio;
 
-        public EventosController(IEventoServicio eventoServicio, ICalificacionesServicio calificacionesServicio)
+        public EventosController(
+            IEventoServicio eventoServicio,
+            ICalificacionesServicio calificacionesServicio,
+            IEventoCocineroServicio eventoCocineroServicio
+            )
         {
             _eventoServicio = eventoServicio;
             _calificacionesServicio = calificacionesServicio;
+            _eventoCocineroServicio = eventoCocineroServicio;
         }
 
         public IActionResult Detalle(int id)
         {
             List<Calificacione> calificaciones = _calificacionesServicio.ObtenerCalificacionesPorIdEvento(id);
+            EventoCocineroViewModel eventoCocinero = _eventoCocineroServicio.ObtenerDetalleDeEventoConCocinero(id);
 
             ViewBag.Calificaciones = calificaciones;
+            //ViewBag.EventoCocinero = eventoCocinero;
 
-            return View();
+            return View(eventoCocinero);
         }
     }
 }
