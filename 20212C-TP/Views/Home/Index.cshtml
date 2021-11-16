@@ -8,7 +8,9 @@
     {
         <div class="col-md-3 col-lg-4 mb-2">
             <a class="card bg-secondary border-2 btn" href="/eventos/detalle?id=@eventoFinalizado.IdEvento">
-                <img class="card-image-custom" src="/assets/img/@eventoFinalizado.Foto" alt="@eventoFinalizado.Foto" />
+                <div class="text-center d-flex justify-content-center align-items-center">
+                    <img class="card-image-custom img-fluid img-thumbnail" src="/assets/img/@eventoFinalizado.Foto" alt="@eventoFinalizado.Foto" />
+                </div>
                 <div class="card-body m-0 p-0">
                     <div class="text-center text-muted">
                         <ul class="list-group">
@@ -29,5 +31,3 @@
         </div>
     }
 </div>
-
-@*href="/eventos/detalle/@eventoFinalizado.IdEvento"*@
