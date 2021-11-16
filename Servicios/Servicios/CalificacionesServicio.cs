@@ -20,5 +20,12 @@ namespace Servicios.Servicios
         {
             return _calificacionesRepositorio.ObtenerCalificacionesPorIdEvento(idEvento);
         }
+
+        public double ObtenerPromedioDeCalificacionesPorEvento(int idEvento)
+        {
+            List<Calificacione> calificaciones = _calificacionesRepositorio.ObtenerCalificacionesPorIdEvento(idEvento);
+
+            return calificaciones.Average(calificacion => calificacion.Calificacion);
+        }
     }
 }
