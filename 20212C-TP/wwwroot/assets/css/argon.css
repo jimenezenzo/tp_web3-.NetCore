@@ -8025,9 +8025,8 @@ button.bg-dark:focus
     background-color: #0a0c0d !important;
 }
 
-.bg-default
-{
-    background-color: #FFF !important;
+.bg-default {
+    background-color: #172b4d !important;
 }
 
 a.bg-default:hover,
@@ -15044,7 +15043,7 @@ button.bg-lighter:focus
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(to bottom, #232526, #414345) !important;
+    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
 }
 
 .bg-gradient-secondary
@@ -15399,7 +15398,7 @@ button.section-darker:focus
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(to bottom, #232526, #414345) !important;
+    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
 }
 
 .bg-gradient-secondary
