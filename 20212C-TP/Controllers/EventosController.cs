@@ -33,7 +33,7 @@ namespace _20212C_TP.Controllers
             EventoCocineroViewModel eventoCocinero = _eventoCocineroServicio.ObtenerDetalleDeEventoConCocinero(id);
 
             ViewBag.Calificaciones = calificaciones;
-            //ViewBag.EventoCocinero = eventoCocinero;
+            ViewBag.PromedioCalificaciones = _calificacionesServicio.ObtenerPromedioDeCalificacionesPorEvento(id);
 
             return View(eventoCocinero);
         }
