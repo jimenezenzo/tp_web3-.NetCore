@@ -64,6 +64,9 @@ namespace _20212C_TP
             services.AddScoped<ICalificacionesRepositorio, CalificacionesRepositorio>();
             services.AddScoped<ICalificacionesServicio, CalificacionesServicio>();
 
+            services.AddScoped<IEventoCocineroRepositorio, EventoCocineroRepositorio>();
+            services.AddScoped<IEventoCocineroServicio, EventoCocineroServicio>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews();
