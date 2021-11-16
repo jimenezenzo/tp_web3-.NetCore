@@ -1,15 +1,48 @@
 ﻿@model Servicios.Entidades.EventoCocineroViewModel
 
 <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
+    <div class="col-5 p-0 text-center d-flex justify-content-center align-items-center">
+        <img class="img-fluid img-thumbnail" src="/assets/img/@Model.FotoEvento" alt="Alternate Text" />
+    </div>
+    <div class="col-6 p-0 offset-1">
         <div class="card bg-secondary shadow border-0">
-            <h1>Opiniones sobre @Model.NombreEvento</h1>
-            <h3>Cocinero: @Model.NombreCocinero</h3>
-            @foreach (Servicios.Entidades.Calificacione calificacion in ViewBag.Calificaciones)
-            {
-                <h5>@calificacion.Calificacion</h5>
-                <h5>@calificacion.Comentarios</h5>
-            }
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h2 class="my-auto">@Model.NombreEvento</h2>
+                </li>
+                <li class="d-flex justify-content-between list-group-item text-center">
+                    <div class="m-auto">
+                        <h1 style="font-size: 50px;">@String.Format("{0:0.#}", @ViewBag.PromedioCalificaciones)</h1>
+                        @for (int i = 0; i < @ViewBag.PromedioCalificaciones; i++)
+                        {
+                            <img class="my-auto" src="/assets/img/star.png" style="height: 24px; width: 24px;" />
+                        }
+
+                        <p>Promedio entre @ViewBag.Calificaciones.Count calificaciones</p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h2 class="my-auto">$ @Model.PrecioEvento</h2>
+                </li>
+            </ul>
+
+            <ul class="list-group list-group-flush">
+                @foreach (Servicios.Entidades.Calificacione calificacion in ViewBag.Calificaciones)
+                {
+                    <li class="border-0 list-group-item d-flex flex-column">
+                        <div class="mb-2">
+                            @for (int i = 0; i < calificacion.Calificacion; i++)
+                            {
+                                <img class="my-auto" src="/assets/img/star.png" style="height: 24px; width: 24px;" />
+                            }
+                        </div>
+                        <div class="mt-2">
+                            <p class="my-auto" style="color: #000;">@calificacion.Comentarios</p>
+                        </div>
+                    </li>
+                }
+            </ul>
+
         </div>
     </div>
 </div>
