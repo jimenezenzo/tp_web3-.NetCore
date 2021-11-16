@@ -7,15 +7,15 @@
     <div class="col-6 p-0 offset-1">
         <div class="card bg-secondary shadow border-0">
             <ul class="list-group">
-                <li class="list-group-item">
-                    <h2 class="my-auto">@Model.NombreEvento</h2>
+                <li class="list-group-item list-group-item-primary">
+                    <h2 class="my-auto text-center">@Model.NombreEvento</h2>
                 </li>
                 <li class="d-flex justify-content-between list-group-item text-center">
                     <div class="m-auto">
-                        <h1 style="font-size: 50px;">@String.Format("{0:0.#}", @ViewBag.PromedioCalificaciones)</h1>
+                        <h1 class="fuente-destacada">@String.Format("{0:0.#}", @ViewBag.PromedioCalificaciones)</h1>
                         @for (int i = 0; i < @ViewBag.PromedioCalificaciones; i++)
                         {
-                            <img class="my-auto" src="/assets/img/star.png" style="height: 24px; width: 24px;" />
+                            <img class="my-auto imagen-calificacion" src="/assets/img/star.png" />
                         }
 
                         <p>Promedio entre @ViewBag.Calificaciones.Count calificaciones</p>
@@ -33,11 +33,11 @@
                         <div class="mb-2">
                             @for (int i = 0; i < calificacion.Calificacion; i++)
                             {
-                                <img class="my-auto" src="/assets/img/star.png" style="height: 24px; width: 24px;" />
+                                <img class="my-auto imagen-calificacion" src="/assets/img/star.png" />
                             }
                         </div>
                         <div class="mt-2">
-                            <p class="my-auto" style="color: #000;">@calificacion.Comentarios</p>
+                            <p class="my-auto">@calificacion.Comentarios</p>
                         </div>
                     </li>
                 }

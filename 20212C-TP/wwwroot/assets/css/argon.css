@@ -2475,9 +2475,17 @@ select.form-control:focus::-ms-value
     border-radius: .4375rem;
 }
 
+.fuente-destacada {
+    font-size: 50px;
+}
+
+.imagen-calificacion {
+    height: 24px;
+    width: 24px;
+}
+
 select.form-control[size],
-select.form-control[multiple]
-{
+select.form-control[multiple] {
     height: auto;
 }
 
