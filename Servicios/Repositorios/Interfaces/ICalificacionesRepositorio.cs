@@ -10,5 +10,7 @@ namespace Servicios.Repositorios.Interfaces
     {
         public List<Calificacione> ObtenerCalificacionesPorIdEvento(int idEvento);
         public void CalificarEvento(Calificacione calificacion);
+
+        public Calificacione ObtenerCalificacionEventoComensal(int idComensal, int idEvento);
     }
 }

@@ -16,10 +16,25 @@ namespace Servicios.Repositorios
             _db = db;
         }
 
-        public void CalificarEvento(Calificacione calificacion)
+        public void CalificarEvento(Calificacione cal)
         {
-            _db.Calificaciones.Add(calificacion);
-            _db.SaveChanges();
+            var query = from calificacion in _db.Calificaciones
+                        where calificacion.IdEvento == cal.IdEvento &&
+                        calificacion.IdComensal == cal.IdComensal
+                        select calificacion;
+
+            if(query.FirstOrDefault() != null)
+            {
+                query.FirstOrDefault().Comentarios = cal.Comentarios;
+                query.FirstOrDefault().Calificacion = cal.Calificacion;
+                _db.SaveChanges();
+            }
+            else
+            {
+                _db.Calificaciones.Add(cal);
+                _db.SaveChanges();
+            }
+
         }
 
         public List<Calificacione> ObtenerCalificacionesPorIdEvento(int idEvento)
@@ -29,6 +44,16 @@ namespace Servicios.Repositorios
                         select calificacion;
 
             return query.ToList();
+        }
+
+        public Calificacione ObtenerCalificacionEventoComensal(int idComensal, int idEvento)
+        {
+            var query = from calificacion in _db.Calificaciones
+                        where calificacion.IdEvento == idEvento &&
+                        calificacion.IdComensal == idComensal
+                        select calificacion;
+
+            return query.FirstOrDefault();
         }
     }
 }
