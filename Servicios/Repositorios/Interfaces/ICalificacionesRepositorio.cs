@@ -9,5 +9,6 @@ namespace Servicios.Repositorios.Interfaces
     public interface ICalificacionesRepositorio
     {
         public List<Calificacione> ObtenerCalificacionesPorIdEvento(int idEvento);
+        public void CalificarEvento(Calificacione calificacion);
     }
 }

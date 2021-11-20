@@ -16,6 +16,12 @@ namespace Servicios.Repositorios
             _db = db;
         }
 
+        public void CalificarEvento(Calificacione calificacion)
+        {
+            _db.Calificaciones.Add(calificacion);
+            _db.SaveChanges();
+        }
+
         public List<Calificacione> ObtenerCalificacionesPorIdEvento(int idEvento)
         {
             var query = from calificacion in _db.Calificaciones

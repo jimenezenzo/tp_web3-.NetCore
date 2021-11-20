@@ -27,5 +27,16 @@ namespace Servicios.Servicios
 
             return calificaciones.Average(calificacion => calificacion.Calificacion);
         }
+
+        public void CalificarEvento(int idEvento, int idComensal, string comentario, int puntuacion)
+        {
+            Calificacione c = new Calificacione();
+            c.IdEvento = idEvento;
+            c.IdComensal = idComensal;
+            c.Comentarios = comentario;
+            c.Calificacion = puntuacion;
+
+            _calificacionesRepositorio.CalificarEvento(c);
+        }
     }
 }
