@@ -5,3 +5,7 @@
 .img-cocinero img{
     box-shadow: none !important;
 }
+.modal_cancel {
+    white-space: normal;
+    text-align: left;
+}
