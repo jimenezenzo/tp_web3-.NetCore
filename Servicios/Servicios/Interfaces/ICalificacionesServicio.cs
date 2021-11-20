@@ -16,5 +16,6 @@ namespace Servicios.Servicios.Interfaces
          * TODO: Crear metodo para obtener promedio de calificaciones por evento.
          * 
          */
+        public void CalificarEvento(int idevento,int idComensal,string comentario,int puntuacion);
     }
 }

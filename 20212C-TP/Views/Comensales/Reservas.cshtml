@@ -256,7 +256,7 @@
                             <th scope="col">Ubicacion</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Receta</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     @if(@Enumerable.Count(ViewBag.Reservas) > 0) {
@@ -264,7 +264,7 @@
                         @foreach (var reserva in ViewBag.Reservas)
                         {
                             var rutaFoto = "~/assets/img/evento/" + (reserva.IdEventoNavigation.Foto ?? "default.jpg");
-                            if (reserva.IdEventoNavigation.Estado == 1)
+                            if (reserva.IdEventoNavigation.Estado == (int)Servicios.Dominio.EstadoEvento.CANCELADO)
                             {
                                 <tr class="evento-cancelado">
                                     <th scope="row">
@@ -306,13 +306,7 @@
                                         }
                                     </td>
                                     <td>
-                                        @foreach (var receta in ViewBag.Recetas)
-                                        {
-                                            if (reserva.IdReceta == receta.IdReceta)
-                                            {
-                                                @receta.Nombre
-                                            }
-                                        }
+                                        
                                     </td>
                                 </tr>
                             }
@@ -357,14 +351,18 @@
                                                 break;
                                         }
                                     </td>
-                                    <td>
-                                        @foreach (var receta in ViewBag.Recetas)
-                                        {
-                                            if (reserva.IdReceta == receta.IdReceta)
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            @if (reserva.IdEventoNavigation.Estado == (int)Servicios.Dominio.EstadoEvento.FINALIZADO)
                                             {
-                                                @receta.Nombre
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a href="/Comensales/Comentarios/@reserva.IdEvento" class="dropdown-item">Puntuar Evento</a>
+                                                </div>
                                             }
-                                        }
+                                        </div>
                                     </td>
                                 </tr>
                             }

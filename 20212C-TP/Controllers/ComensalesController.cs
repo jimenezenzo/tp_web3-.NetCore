@@ -15,13 +15,15 @@ namespace _20212C_TP.Controllers
         IRecetaServicio _recetaServicio;
         IUsuarioServicio _usuarioServicio;
         IComensalServicio _comensalServicio;
+        ICalificacionesServicio _calificacionesServicio;
 
-        public ComensalesController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio, IComensalServicio comensalServicio)
+        public ComensalesController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio, IComensalServicio comensalServicio, ICalificacionesServicio calificacionesServicio)
         {
             _eventoServicio = eventoServicio;
             _recetaServicio = recetaServicio;
             _usuarioServicio = usuarioServicio;
             _comensalServicio = comensalServicio;
+            _calificacionesServicio = calificacionesServicio;
         }
         public ActionResult Reserva()
         {
@@ -47,9 +49,36 @@ namespace _20212C_TP.Controllers
 
             return View();
         }
-        public ActionResult Comentarios()
+        [Route("[controller]/Comentarios/{idEvento}")]
+        public ActionResult Comentarios(int idEvento)
         {
+            ViewBag.IdEvento = idEvento;
             return View();
+        }
+        [HttpPost]
+        [Route("[controller]/Comentarios-calificacion")]
+        public ActionResult Comentarios(PuntuarViewModel puntuarViewModel)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.IdEvento = puntuarViewModel.IdEvento;
+                    return View(puntuarViewModel);
+                }
+
+                var idComensal = HttpContext.Session.Get<int>("idUsuario");
+
+                _calificacionesServicio.CalificarEvento(puntuarViewModel.IdEvento, idComensal, puntuarViewModel.Comentarios, puntuarViewModel.Calificacion);
+
+                return Redirect("/comensales/reservas");
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+
+                return Redirect("/comensales/reservas");
+            }
         }
 
         [Route("[controller]/{idEvento}/reservar")]
