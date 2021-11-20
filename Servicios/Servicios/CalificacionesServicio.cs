@@ -38,5 +38,10 @@ namespace Servicios.Servicios
 
             _calificacionesRepositorio.CalificarEvento(c);
         }
+
+        public Calificacione ObtenerCalificacionEventoComensal(int idComensal, int idEvento)
+        {
+            return _calificacionesRepositorio.ObtenerCalificacionEventoComensal(idComensal, idEvento);
+        }
     }
 }

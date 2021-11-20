@@ -17,5 +17,7 @@ namespace Servicios.Servicios.Interfaces
          * 
          */
         public void CalificarEvento(int idevento,int idComensal,string comentario,int puntuacion);
+
+        public Calificacione ObtenerCalificacionEventoComensal(int idComensal, int idEvento);
     }
 }

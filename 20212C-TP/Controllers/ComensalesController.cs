@@ -1,6 +1,7 @@
 ﻿using _20212C_TP.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,19 @@ namespace _20212C_TP.Controllers
         public ActionResult Comentarios(int idEvento)
         {
             ViewBag.IdEvento = idEvento;
+            var idComensal = HttpContext.Session.Get<int>("idUsuario");
+            if (_calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, idEvento) != null)
+            {
+                ViewBag.Calificacion = _calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, idEvento);
+            }
+            else
+            {
+                Calificacione c = new Calificacione();
+                c.Calificacion = 1;
+                c.Comentarios = "";
+                ViewBag.Calificacion = c;
+            }
+
             return View();
         }
         [HttpPost]
@@ -61,13 +75,59 @@ namespace _20212C_TP.Controllers
         {
             try
             {
+                var idComensal = HttpContext.Session.Get<int>("idUsuario");
+
                 if (!ModelState.IsValid)
                 {
                     ViewBag.IdEvento = puntuarViewModel.IdEvento;
+                    if (_calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento) != null)
+                    {
+                        ViewBag.Calificacion = _calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento);
+                    }
+                    else
+                    {
+                        Calificacione c = new Calificacione();
+                        c.Calificacion = 1;
+                        c.Comentarios = "";
+                        ViewBag.Calificacion = c;
+                    }
+                    return View(puntuarViewModel);
+                }
+                if (puntuarViewModel.Calificacion>5 || puntuarViewModel.Calificacion < 1)
+                {
+                    ViewBag.IdEvento = puntuarViewModel.IdEvento;
+                    TempData["error"] = "puntaje entre 1-5";
+                    if (_calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento) != null)
+                    {
+                        ViewBag.Calificacion = _calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento);
+                    }
+                    else
+                    {
+                        Calificacione c = new Calificacione();
+                        c.Calificacion = 1;
+                        c.Comentarios = "";
+                        ViewBag.Calificacion = c;
+                    }
+                    return View(puntuarViewModel);
+                }
+                if (puntuarViewModel.Comentarios=="")
+                {
+                    ViewBag.IdEvento = puntuarViewModel.IdEvento;
+                    TempData["error"] = "Escribir un comentario";
+                    if (_calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento) != null)
+                    {
+                        ViewBag.Calificacion = _calificacionesServicio.ObtenerCalificacionEventoComensal(idComensal, puntuarViewModel.IdEvento);
+                    }
+                    else
+                    {
+                        Calificacione c = new Calificacione();
+                        c.Calificacion = 1;
+                        c.Comentarios = "";
+                        ViewBag.Calificacion = c;
+                    }
                     return View(puntuarViewModel);
                 }
 
-                var idComensal = HttpContext.Session.Get<int>("idUsuario");
 
                 _calificacionesServicio.CalificarEvento(puntuarViewModel.IdEvento, idComensal, puntuarViewModel.Comentarios, puntuarViewModel.Calificacion);
 
