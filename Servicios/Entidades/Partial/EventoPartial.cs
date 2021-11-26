@@ -7,16 +7,14 @@ namespace Servicios.Entidades
 {
     public partial class Evento
     {
-        public int CantidadComensalesDisponibles = 0;
-
-        public int GetCantidadComensalesDisponibles()
+        public int CantidadComensalesDisponibles
         {
-            return CantidadComensalesDisponibles;
+            get
+            {
+                var reservado = Reservas.Sum(r => r.CantidadComensales);
+                return (CantidadComensales - reservado);
+            }
         }
 
-        public void SetCantidadComensalesDisponibles(int cant)
-        {
-            CantidadComensalesDisponibles = cant;
-        }
     }
 }

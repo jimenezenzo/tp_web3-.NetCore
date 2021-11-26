@@ -12,11 +12,13 @@ namespace Servicios.Servicios
     {
         IComensalRepositorio _comensalRepositorio;
         IEventoRepositorio _eventoRepositorio;
+        IRecetaRepositorio _recetaRepositorio;
 
-        public ComensalServicio(IComensalRepositorio comensalRepositorio, IEventoRepositorio eventoRepositorio)
+        public ComensalServicio(IComensalRepositorio comensalRepositorio, IEventoRepositorio eventoRepositorio, IRecetaRepositorio recetaRepositorio)
         {
             _comensalRepositorio = comensalRepositorio;
             _eventoRepositorio = eventoRepositorio;
+            _recetaRepositorio = recetaRepositorio;
         }
 
         public List<Evento> ObtenerEventosParaReservar()
@@ -31,16 +33,16 @@ namespace Servicios.Servicios
 
         public void ReservarEvento(int idEvento, int idComensal, int idReceta, int cantidadComensales)
         {
-            if(idReceta == 0)
-                throw new Exception("Tenes que seleccionar una receta");
+            if(_recetaRepositorio.ObtenerReceta(idReceta) == null)
+                throw new Exception("La receta ingresada no existe");
 
-            if(cantidadComensales == 0)
-                throw new Exception("Tenes que ingresar una cantidad de comensales");
+            if(_eventoRepositorio.ObtenerEventoPorId(idEvento) == null)
+                throw new Exception("El evento no existe");
 
-            var cantidadComensalesEventoDb = _eventoRepositorio.ObtenerEventoPorId(idEvento).CantidadComensales;
+            var cantidadMaximaComensales = _eventoRepositorio.ObtenerEventoPorId(idEvento).CantidadComensales;
             var cantidadDeComensalesActualReservados = _comensalRepositorio.ObtenerCantidadDeComensalesReservados(idEvento);
 
-            if ((cantidadDeComensalesActualReservados + cantidadComensales) > cantidadComensalesEventoDb)
+            if ((cantidadDeComensalesActualReservados + cantidadComensales) > cantidadMaximaComensales)
                 throw new Exception("La cantidad de comensales ingresado supera el limite");
 
             Reserva reserva = new Reserva();
