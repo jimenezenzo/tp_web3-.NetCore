@@ -20,22 +20,18 @@ namespace Servicios.Repositorios
 
         public List<Evento> ObtenerEventosParaReservar()
         {
-            var query = from e in _db.Eventos.Include("Reservas")
-                        where e.Fecha > DateTime.Now &&
-                        e.Estado != (int)EstadoEvento.CANCELADO && e.Estado != (int)EstadoEvento.FINALIZADO
-                        select e;
-
             List<Evento> returnEventos = new List<Evento>();
 
-            foreach(Evento e in query)
-            {
-                var cantComensales = e.Reservas.Sum(r => r.CantidadComensales);
+            var query = from e in _db.Eventos.Include("Reservas")
+                        where e.Fecha > DateTime.Now &&
+                        e.Estado != (int)EstadoEvento.CANCELADO &&
+                        e.Estado != (int)EstadoEvento.FINALIZADO
+                        select e;
 
-                if (cantComensales < e.CantidadComensales)
-                {
-                    e.CantidadComensalesDisponibles = e.CantidadComensales - cantComensales;
+            foreach (Evento e in query)
+            {
+                if (e.CantidadComensalesDisponibles > 0)
                     returnEventos.Add(e);
-                }
             }
 
             return returnEventos;

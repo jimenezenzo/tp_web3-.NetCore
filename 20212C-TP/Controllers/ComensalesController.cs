@@ -1,6 +1,8 @@
-﻿using _20212C_TP.Models;
+﻿using _20212C_TP.Filtros;
+using _20212C_TP.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Servicios.Dominio;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace _20212C_TP.Controllers
 {
+    [AuthorizationFilter((int)PerfilUsuario.COMENSAL)]
     public class ComensalesController : Controller
     {
         IEventoServicio _eventoServicio;
@@ -31,15 +34,9 @@ namespace _20212C_TP.Controllers
             _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
             return View(_comensalServicio.ObtenerEventosParaReservar());
         }
+
         public ActionResult Reservas()
         {
-            int perfil = HttpContext.Session.Get<int>("perfil");
-
-            //if (perfil != 1)
-            //{
-            //    return Redirect("/Home/Index");
-            //}
-
             int idComensal = HttpContext.Session.Get<int>("idUsuario");
 
             ViewBag.Usuario = _usuarioServicio.ObtenerUsuarioPorId(idComensal);
@@ -50,6 +47,7 @@ namespace _20212C_TP.Controllers
 
             return View();
         }
+
         [Route("[controller]/Comentarios/{idEvento}")]
         public ActionResult Comentarios(int idEvento)
         {
@@ -69,6 +67,7 @@ namespace _20212C_TP.Controllers
 
             return View();
         }
+
         [HttpPost]
         [Route("[controller]/Comentarios-calificacion")]
         public ActionResult Comentarios(PuntuarViewModel puntuarViewModel)

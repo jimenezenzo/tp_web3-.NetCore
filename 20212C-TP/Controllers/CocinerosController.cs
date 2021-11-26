@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 using Servicios.Servicios.Interfaces;
 using _20212C_TP.Models;
 using System.IO;
+using _20212C_TP.Filtros;
+using Servicios.Dominio;
 
 namespace _20212C_TP.Controllers
 {
+    [AuthorizationFilter((int)PerfilUsuario.COCINERO)]
     public class CocinerosController : Controller
     {
         IEventoServicio _eventoServicio;
@@ -26,13 +29,6 @@ namespace _20212C_TP.Controllers
         [HttpGet]
         public ActionResult Eventos()
         {
-            int perfil = HttpContext.Session.Get<int>("perfil");
-
-            if (perfil != 2)
-            {
-                return Redirect("/Home/Index");
-            }
-
             int idComensal = HttpContext.Session.Get<int>("idUsuario");
 
             ViewBag.Recetas = _recetaServicio.ObtenerRecetasPorCocinero(idComensal);
@@ -44,13 +40,6 @@ namespace _20212C_TP.Controllers
         {
             try
             {
-                int perfil = HttpContext.Session.Get<int>("perfil");
-
-                if (perfil != 2)
-                {
-                    return Redirect("/Home/Index");
-                }
-
                 int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
                 if (!ModelState.IsValid)
@@ -105,12 +94,6 @@ namespace _20212C_TP.Controllers
         public ActionResult Perfil()
         {
             _eventoServicio.CambiarEstadoSegunLaFechaDeHoy();
-            int perfil = HttpContext.Session.Get<int>("perfil");
-
-            if (perfil != 2)
-            {
-                return Redirect("/Home/Index");
-            }
 
             int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
@@ -128,13 +111,6 @@ namespace _20212C_TP.Controllers
         }
         public ActionResult Cancelacion()
         {
-            int perfil = HttpContext.Session.Get<int>("perfil");
-
-            if (perfil != 2)
-            {
-                return Redirect("/Home/Index");
-            }
-
             int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
             ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(idCocinero);

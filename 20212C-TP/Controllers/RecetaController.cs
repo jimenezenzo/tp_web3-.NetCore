@@ -1,6 +1,8 @@
-﻿using _20212C_TP.Models;
+﻿using _20212C_TP.Filtros;
+using _20212C_TP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Servicios.Dominio;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
 using System;
@@ -28,6 +30,7 @@ namespace _20212C_TP.Controllers
         }
 
         [HttpGet]
+        [AuthorizationFilter((int)PerfilUsuario.COCINERO)]
         public IActionResult Crear()
         {
             int idUsuario = HttpContext.Session.Get<int>("idUsuario");
@@ -52,6 +55,7 @@ namespace _20212C_TP.Controllers
         }
 
         [HttpPost]
+        [AuthorizationFilter((int)PerfilUsuario.COCINERO)]
         public IActionResult Crear(RecetaViewModel receta)
         {
 
