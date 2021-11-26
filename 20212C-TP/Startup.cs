@@ -1,3 +1,4 @@
+using _20212C_TP.Filtros;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ using Servicios.Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace _20212C_TP
@@ -31,9 +33,14 @@ namespace _20212C_TP
         {
             services.AddDistributedMemoryCache();
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
+
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
                 options.Cookie.Name = ".TPWEB3.Session";
@@ -85,6 +92,17 @@ namespace _20212C_TP
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePages(async context => {
+                var request = context.HttpContext.Request;
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
+                {
+                    response.Redirect("/errores/status401");
+                }
+            });
+
             app.UseHttpsRedirection();
 
             app.UseDefaultFiles();

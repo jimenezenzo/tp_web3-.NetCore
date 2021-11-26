@@ -47,6 +47,7 @@ namespace _20212C_TP.Controllers
 
             return View();
         }
+
         [Route("[controller]/Comentarios/{idEvento}")]
         public ActionResult Comentarios(int idEvento)
         {
@@ -66,6 +67,7 @@ namespace _20212C_TP.Controllers
 
             return View();
         }
+
         [HttpPost]
         [Route("[controller]/Comentarios-calificacion")]
         public ActionResult Comentarios(PuntuarViewModel puntuarViewModel)

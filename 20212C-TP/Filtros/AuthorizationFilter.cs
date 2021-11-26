@@ -12,6 +12,7 @@ namespace _20212C_TP.Filtros
         private int _perfil { get; set; }
         public AuthorizationFilter(int perfil)
         {
+
             this._perfil = perfil;
         }
         public void OnAuthorization(AuthorizationFilterContext context)
