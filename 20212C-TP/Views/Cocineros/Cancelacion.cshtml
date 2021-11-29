@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
-    var rutaFotoCocinero = "~/assets/img/cocinero.png";
 }
+
 <link type="text/css" href="/css/Perfil.css" rel="stylesheet">
 <div class="row">
     <div class="col">
@@ -33,9 +33,9 @@
                                 var rutaFoto = "~/assets/img/evento/" + (evento.Foto ?? "default.jpg");
                                 <tr>
                                     <th scope="row">
-                                        <div class="card">
+                                        <div class="card bg-default">
                                             <div class="card-body">
-                                                <h5 class="card-title">@evento.Nombre</h5>
+                                                <h4 class="card-title text-white">@evento.Nombre</h4>
                                             </div>
                                             <img class="card-img-bottom" src="@rutaFoto" asp-append-version="true" />
                                         </div>

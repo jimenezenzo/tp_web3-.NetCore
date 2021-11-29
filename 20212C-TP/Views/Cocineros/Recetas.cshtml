@@ -2,11 +2,84 @@
     Layout = "~/Views/Shared/_LayoutCocinero.cshtml";
 }
 
+@model _20212C_TP.Models.RecetaViewModel
+
 <div class="row">
     <div class="col">
         <div class="card shadow">
             <div class="card-header border-0">
-                <h3 class="mb-0">Recetas</h3>
+                <h3 class="mb-0">Crear receta</h3>
+            </div>
+            <div class="container">
+                <div class="text-center text-muted mb-4">
+                    <small>Complete los datos de la receta</small>
+                </div>
+                <form role="form" asp-controller="Cocineros" asp-action="Recetas" method="post">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-collection"></i></span>
+                            </div>
+                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingrese nombre de la receta" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
+                            </div>
+                            <input asp-for="TiempoCoccion" type="number" class="form-control" placeholder="Ingrese tiempo de cocción (en minutos)">
+                        </div>
+                        <span asp-validation-for="TiempoCoccion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text d-flex align-items-start"><i class="ni ni-align-center"></i></span>
+                            </div>
+                            @*<input asp-for="Descripcion" type="text" class="form-control" placeholder="Ingrese descripción">*@
+                            <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Ingrese descripción"></textarea>
+                        </div>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text d-flex align-items-start"><i class="ni ni-bullet-list-67"></i></span>
+                            </div>
+                            @*<input asp-for="Ingredientes" type="text" class="form-control" placeholder="Ingrese ingredientes">*@
+                            <textarea asp-for="Ingredientes" class="form-control" rows="3" placeholder="Ingrese ingredientes (separados por comas)"></textarea>
+                        </div>
+                        <span asp-validation-for="Ingredientes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-bold-down"></i></span>
+                            </div>
+                            <select asp-for="IdTipoReceta" asp-items="@ViewBag.TiposReceta" class="form-control">
+                                <option selected value="0">Otro tipo de receta</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="IdTipoReceta" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-bold-right"></i></span>
+                            </div>
+                            <input name="nuevoTipoReceta" type="text" class="form-control" placeholder="Ingrese nuevo tipo de receta" />
+                        </div>
+                    </div>
+
+                    <input asp-for="IdCocinero" type="hidden" class="form-control" value="@ViewData["idCocinero"]">
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-4">Crear</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

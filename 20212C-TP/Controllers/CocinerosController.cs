@@ -9,6 +9,8 @@ using _20212C_TP.Models;
 using System.IO;
 using _20212C_TP.Filtros;
 using Servicios.Dominio;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Servicios.Entidades;
 
 namespace _20212C_TP.Controllers
 {
@@ -18,12 +20,14 @@ namespace _20212C_TP.Controllers
         IEventoServicio _eventoServicio;
         IRecetaServicio _recetaServicio;
         IUsuarioServicio _usuarioServicio;
+        ITipoRecetaServicio _tipoRecetaServicio;
 
-        public CocinerosController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio)
+        public CocinerosController(IEventoServicio eventoServicio, IRecetaServicio recetaServicio, IUsuarioServicio usuarioServicio, ITipoRecetaServicio tipoRecetaServicio)
         {
             _eventoServicio = eventoServicio;
             _recetaServicio = recetaServicio;
             _usuarioServicio = usuarioServicio;
+            _tipoRecetaServicio = tipoRecetaServicio;
         }
 
         [HttpGet]
@@ -117,6 +121,54 @@ namespace _20212C_TP.Controllers
             ViewBag.IdCocinero = idCocinero;
 
             return View();
+        }
+
+        public ActionResult Recetas()
+        {
+            int idUsuario = HttpContext.Session.Get<int>("idUsuario");
+            ViewData["idCocinero"] = _usuarioServicio.ObtenerUsuarioPorId(idUsuario).IdUsuario;
+
+            ViewBag.TiposReceta = new SelectList(_tipoRecetaServicio.ObtenerTodas(), "IdTipoReceta", "Nombre");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Recetas(RecetaViewModel receta)
+        {
+
+            if (ModelState.IsValid)
+            {
+                int idUsuario = HttpContext.Session.Get<int>("idUsuario");
+
+                Usuario usuario = _usuarioServicio.ObtenerUsuarioPorId(idUsuario);
+
+                if (receta.IdTipoReceta == 0)
+                {
+                    string nuevoTipoReceta = Request.Form["nuevoTipoReceta"];
+
+                    _tipoRecetaServicio.Crear(nuevoTipoReceta);
+
+                    int idTipoRecetaNueva = _tipoRecetaServicio.ObtenerTodas().Count();
+
+                    _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, idTipoRecetaNueva);
+
+                }
+                else
+                {
+                    _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, receta.IdTipoReceta);
+                }
+
+                TempData["MensajeAlert"] = "Receta creada";
+                TempData["ClaseAlert"] = "alert alert-success alert-dismissible fade show";
+
+                return Redirect("/cocineros/perfil");
+            }
+            else
+            {
+                return View(receta);
+            }
+
         }
     }
 }

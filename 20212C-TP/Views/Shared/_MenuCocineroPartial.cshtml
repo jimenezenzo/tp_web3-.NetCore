@@ -1,22 +1,22 @@
-﻿<ul class="navbar-nav">
+﻿<ul class="navbar-nav flex-column">
     <li class="nav-item">
-        <a class="nav-link" asp-controller="receta" asp-action="crear">
-            <i class="ni ni-tv-2 text-primary"></i> Crear receta
+        <a class="dropdown-item" asp-controller="cocineros" asp-action="eventos">
+            <i class="far fa-calendar-alt text-success"></i> Crear evento de comida
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="cocineros" asp-action="eventos">
-            <i class="ni ni-tv-2 text-primary"></i> Crear evento de cocina
+        <a class="dropdown-item" asp-controller="cocineros" asp-action="recetas">
+            <i class="fas fa-utensils text-success"></i> Crear recetas de cocina
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="cocineros" asp-action="perfil">
-            <i class="ni ni-tv-2 text-primary"></i> Perfil
+        <a class="dropdown-item" asp-controller="cocineros" asp-action="Perfil">
+            <i class="fas fa-user-circle text-primary"></i> Perfil
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="cocineros" asp-action="cancelacion">
-            <i class="ni ni-tv-2 text-primary"></i> Cancelar eventos
+        <a class="dropdown-item" asp-controller="cocineros" asp-action="cancelacion">
+            <i class="fas fa-calendar-times text-red"></i> Cancelar eventos
         </a>
     </li>
 </ul>

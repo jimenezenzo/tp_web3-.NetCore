@@ -86,7 +86,7 @@
             <div class="card bg-default shadow">
                 <div class="card-header bg-transparent border-0">
                     <h3 class="text-white mb-0">Recetas</h3>
-                    <a class="btn btn-danger" href="/Receta/Crear">Crear nueva receta</a>
+                    <a class="btn btn-danger" asp-controller="Cocineros" asp-action="Recetas">Crear nueva receta</a>
                 </div>
                 <div class="table-responsive">
                     @if (ViewBag.Recetas != null)
