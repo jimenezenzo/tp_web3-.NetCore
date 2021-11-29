@@ -17,6 +17,14 @@ namespace Servicios.Servicios
             this._tipoRecetaRepositorio = tipoRecetaRepositorio;
         }
 
+        public void Crear(string nombre)
+        {
+            TipoReceta tipoReceta = new TipoReceta();
+            tipoReceta.Nombre = nombre;
+
+            this._tipoRecetaRepositorio.Crear(tipoReceta);
+        }
+
         public List<TipoReceta> ObtenerTodas()
         {
             return _tipoRecetaRepositorio.ObtenerTodas();

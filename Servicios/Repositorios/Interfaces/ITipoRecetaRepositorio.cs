@@ -9,5 +9,7 @@ namespace Servicios.Repositorios.Interfaces
      public interface ITipoRecetaRepositorio
     {
         public List<TipoReceta> ObtenerTodas();
+        public void Crear(TipoReceta tipoReceta);
+
     }
 }

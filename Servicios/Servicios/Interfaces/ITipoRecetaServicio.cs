@@ -9,5 +9,6 @@ namespace Servicios.Servicios.Interfaces
     public interface ITipoRecetaServicio
     {
         public List<TipoReceta> ObtenerTodas();
+        public void Crear(string nombre);
     }
 }

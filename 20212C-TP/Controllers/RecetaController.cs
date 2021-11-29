@@ -65,7 +65,21 @@ namespace _20212C_TP.Controllers
 
                 Usuario usuario = _usuarioServicio.ObtenerUsuarioPorId(idUsuario);
 
-                _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, receta.IdTipoReceta);
+                if (receta.IdTipoReceta == 0)
+                {
+                    string nuevoTipoReceta = Request.Form["nuevoTipoReceta"];
+
+                    _tipoRecetaServicio.Crear(nuevoTipoReceta);
+
+                    int idTipoRecetaNueva = _tipoRecetaServicio.ObtenerTodas().Count();
+
+                    _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, idTipoRecetaNueva);
+
+                }
+                else
+                {
+                    _recetaServicio.Crear(usuario, receta.Nombre, receta.TiempoCoccion, receta.Descripcion, receta.Ingredientes, receta.IdTipoReceta);
+                }
 
                 TempData["MensajeAlert"] = "Receta creada";
                 TempData["ClaseAlert"] = "alert alert-success alert-dismissible fade show";

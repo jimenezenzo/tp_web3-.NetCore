@@ -16,10 +16,18 @@ namespace Servicios.Repositorios
         {
             this._db = db;
         }
+
+        public void Crear(TipoReceta tipoReceta)
+        {
+            _db.Add(tipoReceta);
+            _db.SaveChanges();
+        }
+
         public List<TipoReceta> ObtenerTodas()
         {
             return _db.TipoRecetas.ToList();
         }
+
 
     }
 }
