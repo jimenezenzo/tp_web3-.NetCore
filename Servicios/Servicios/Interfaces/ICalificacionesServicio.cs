@@ -12,10 +12,6 @@ namespace Servicios.Servicios.Interfaces
 
         public double ObtenerPromedioDeCalificacionesPorEvento(int idEvento);
 
-        /*
-         * TODO: Crear metodo para obtener promedio de calificaciones por evento.
-         * 
-         */
         public void CalificarEvento(int idevento,int idComensal,string comentario,int puntuacion);
 
         public Calificacione ObtenerCalificacionEventoComensal(int idComensal, int idEvento);
