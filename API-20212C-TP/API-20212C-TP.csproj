@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\20212C-TP\20212C-TP.csproj" />
     <ProjectReference Include="..\Servicios\Servicios.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _20212C_TP.Models
+namespace API_20212C_TP.Models
 {
     public class CancelarEventoViewModel
     {

@@ -7,6 +7,7 @@ using Servicios.Servicios.Interfaces;
 using Servicios.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Servicios.Dominio;
+using Servicios.Exceptions;
 
 namespace Servicios.Servicios
 {
@@ -128,16 +129,16 @@ namespace Servicios.Servicios
             Evento evento = _eventoRepositorio.ObtenerEventoPorId(idEvento);
 
             if (evento == null)
-                throw new Exception("El evento no existe");
+                throw new CancelarEventoException("El evento no existe");
 
             if (evento.Estado == (int)EstadoEvento.CANCELADO)
-                throw new Exception("El evento ya se ha cancelado");
+                throw new CancelarEventoException("El evento ya se ha cancelado");
 
             if (evento.IdCocinero != idCocinero)
-                throw new Exception("No tenes autorizacion para cancelar este evento");
+                throw new CancelarEventoException("No tenes autorizacion para cancelar este evento");
 
             if ((evento.Fecha - DateTime.Now).Days < 1)
-                throw new Exception("No podes cancelar este evento por la fecha");
+                throw new CancelarEventoException("No podes cancelar eventos creados para hoy");
 
             evento.Estado = (int)EstadoEvento.CANCELADO;
 

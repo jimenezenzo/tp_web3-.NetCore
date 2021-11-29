@@ -37,7 +37,7 @@ namespace Servicios.Repositorios
 
         public List<Evento> ObtenerEventosPorCocinero(Usuario usuario)
         {
-            var query = from e in _db.Eventos
+            var query = from e in _db.Eventos.Include("Reservas")
                         where e.IdCocinero == usuario.IdUsuario
                         select e;
 

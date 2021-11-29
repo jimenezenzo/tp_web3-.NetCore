@@ -114,9 +114,7 @@ namespace _20212C_TP.Controllers
             int idCocinero = HttpContext.Session.Get<int>("idUsuario");
 
             ViewBag.Eventos = _eventoServicio.ObtenerEventosPorCocinero(idCocinero);
-            ViewBag.Reservas = _eventoServicio.ObtenerRecervasDeEventosPorCocinero(idCocinero);
             ViewBag.IdCocinero = idCocinero;
-            ViewBag.Cont = 0;
 
             return View();
         }

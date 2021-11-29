@@ -7,14 +7,20 @@ namespace Servicios.Entidades
 {
     public partial class Evento
     {
+        public int CantidadDeComensalesReservados
+        {
+            get
+            {
+                return Reservas.Sum(r => r.CantidadComensales);
+            }
+        }
+
         public int CantidadComensalesDisponibles
         {
             get
             {
-                var reservado = Reservas.Sum(r => r.CantidadComensales);
-                return (CantidadComensales - reservado);
+                return (CantidadComensales - CantidadDeComensalesReservados);
             }
         }
-
     }
 }

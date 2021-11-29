@@ -22,16 +22,18 @@ function cancelarEvento(idEvento, idCocinero) {
             location.reload()
         })
         .catch(error => {
-            if (error.response.status == 400) {
-                console.log(alertError)
-                var error = error.response.data.message
-
-                var alertMensaje = document.createElement("p")
-                alertMensaje.textContent = error
-
-                alertError.appendChild(alertMensaje)
-
+            if (error.response.status == 422) {
+                ingresarAlerta(error.response.data.error)
                 alertError.style.display = "block"
             }
+
+            $('.modal').modal('hide');
         })
+}
+
+function ingresarAlerta(mensaje) {
+    var alertMensaje = document.createElement("p")
+    alertMensaje.textContent = mensaje
+
+    alertError.appendChild(alertMensaje)
 }
