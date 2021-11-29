@@ -35,6 +35,7 @@ namespace _20212C_TP.Controllers
 
                 HttpContext.Session.Set<int>("idUsuario", usuario.IdUsuario);
                 HttpContext.Session.Set<int>("perfil", usuario.Perfil);
+                HttpContext.Session.Set<string>("nombre", usuario.Nombre);
 
                 if (usuario.Perfil == 1)
                     return Redirect("/comensales/reservas");

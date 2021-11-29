@@ -1,17 +1,17 @@
-﻿<ul class="navbar-nav">
+﻿<ul class="navbar-nav flex-column">
     <li class="nav-item">
-        <a class="nav-link" asp-controller="comensales" asp-action="reserva">
-            <i class="ni ni-tv-2 text-primary"></i> Reservar Evento
+        <a class="dropdown-item" asp-controller="comensales" asp-action="reserva">
+            <i class="far fa-calendar-check text-success"></i> Reservar evento
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="comensales" asp-action="reservas">
-            <i class="ni ni-tv-2 text-primary"></i> Mis Reservas
+        <a class="dropdown-item" asp-controller="comensales" asp-action="reservas">
+            <i class="far fa-calendar-alt text-primary"></i> Mis eventos y reservas
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="comensales" asp-action="comentarios">
-            <i class="ni ni-tv-2 text-primary"></i> Eventos finalizados
-        </a>
-    </li>
+    @*<li class="nav-item">
+            <a class="nav-link" asp-controller="comensales" asp-action="comentarios">
+                <i class="ni ni-tv-2 text-primary"></i> Eventos finalizados
+            </a>
+        </li>*@
 </ul>

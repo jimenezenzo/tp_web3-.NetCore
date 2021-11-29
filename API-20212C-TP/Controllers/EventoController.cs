@@ -1,6 +1,4 @@
-﻿using _20212C_TP.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Servicios.Entidades;
 using Servicios.Servicios.Interfaces;
@@ -10,6 +8,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using API_20212C_TP.Models;
+using Servicios.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace API_20212C_TP.Controllers
 {
@@ -24,17 +25,20 @@ namespace API_20212C_TP.Controllers
             _eventoServicio = eventoServicio;
         }
 
-        [Route("cancelar")]
+        [Route("Cancelar")]
         [HttpPost]
-        public async Task<ActionResult<Evento>> CancelarEvento(CancelarEventoViewModel cancelarEventoViewModel)
+        public async Task<ActionResult> PostCancelarEvento(CancelarEventoViewModel cancelarEventoViewModel)
         {
             try
             {
                 return Ok(_eventoServicio.CancelarEvento(cancelarEventoViewModel.IdEvento, cancelarEventoViewModel.IdCocinero));
             }
-            catch (Exception e)
+            catch (CancelarEventoException e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new { message = e.Message });
+                return new JsonResult(new { error = e.Message })
+                {
+                    StatusCode = StatusCodes.Status422UnprocessableEntity,
+                };
             }
         }
     }

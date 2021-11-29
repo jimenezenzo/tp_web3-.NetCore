@@ -12,9 +12,9 @@ namespace _20212C_TP.Filtros
         private int _perfil { get; set; }
         public AuthorizationFilter(int perfil)
         {
-
-            this._perfil = perfil;
+            _perfil = perfil;
         }
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             if (context.HttpContext.Session.Get<int>("perfil") != this._perfil)
