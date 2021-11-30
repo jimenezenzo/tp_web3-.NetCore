@@ -150,7 +150,7 @@ namespace Servicios.Servicios
             _eventoRepositorio.CambiarEstadoSegunLaFechaDeHoy();
         }
 
-        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion()
+        public List<EventoCalificacion> ObtenerEventosFinalizadosConPuntuacion()
         {
            return _eventoRepositorio.ObtenerEventosFinalizadosConPuntuacion();
         }

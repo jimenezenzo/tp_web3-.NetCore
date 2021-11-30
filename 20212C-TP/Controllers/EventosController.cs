@@ -30,7 +30,7 @@ namespace _20212C_TP.Controllers
         public IActionResult Detalle(int id)
         {
             List<Calificacione> calificaciones = _calificacionesServicio.ObtenerCalificacionesPorIdEvento(id);
-            EventoCocineroViewModel eventoCocinero = _eventoCocineroServicio.ObtenerDetalleDeEventoConCocinero(id);
+            EventoCocinero eventoCocinero = _eventoCocineroServicio.ObtenerDetalleDeEventoConCocinero(id);
 
             ViewBag.Calificaciones = calificaciones;
             ViewBag.PromedioCalificaciones = _calificacionesServicio.ObtenerPromedioDeCalificacionesPorEvento(id);

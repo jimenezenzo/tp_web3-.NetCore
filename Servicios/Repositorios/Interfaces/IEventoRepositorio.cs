@@ -37,6 +37,6 @@ namespace Servicios.Repositorios.Interfaces
 
         public void CambiarEstadoSegunLaFechaDeHoy();
 
-        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion();
+        public List<EventoCalificacion> ObtenerEventosFinalizadosConPuntuacion();
     }
 }

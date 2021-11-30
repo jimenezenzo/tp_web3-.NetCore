@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Entidades
 {
-    public class EventoCocineroViewModel
+    public class EventoCocinero
     {
         public int IdEvento { get; set; }
         public int IdCocinero { get; set; }

@@ -8,6 +8,6 @@ namespace Servicios.Repositorios.Interfaces
 {
     public interface IEventoCocineroRepositorio
     {
-        public EventoCocineroViewModel ObtenerDetalleDeEventoConCocinero(int idEvento);
+        public EventoCocinero ObtenerDetalleDeEventoConCocinero(int idEvento);
     }
 }

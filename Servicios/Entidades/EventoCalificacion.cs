@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Entidades
 {
-    public class EventoCalificacionViewModel
+    public class EventoCalificacion
     {
         public decimal Calificacion { get; set; }
         public int IdEvento{ get; set; }

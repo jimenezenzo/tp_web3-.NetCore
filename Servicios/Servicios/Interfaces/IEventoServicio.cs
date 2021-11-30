@@ -28,6 +28,6 @@ namespace Servicios.Servicios.Interfaces
         public Evento CancelarEvento(int idEvento, int idCocinero);
         public void CambiarEstadoSegunLaFechaDeHoy();
 
-        public List<EventoCalificacionViewModel> ObtenerEventosFinalizadosConPuntuacion();
+        public List<EventoCalificacion> ObtenerEventosFinalizadosConPuntuacion();
     }
 }

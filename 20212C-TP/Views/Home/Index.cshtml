@@ -4,7 +4,7 @@
 
 <div class="row justify-content-start">
 
-    @foreach (Servicios.Entidades.EventoCalificacionViewModel eventoFinalizado in ViewBag.EventosFinalizados)
+    @foreach (Servicios.Entidades.EventoCalificacion eventoFinalizado in ViewBag.EventosFinalizados)
     {
         <div class="col-md-3 col-lg-4 mb-2">
             <a class="card bg-secondary border-2 btn" href="/eventos/detalle?id=@eventoFinalizado.IdEvento">

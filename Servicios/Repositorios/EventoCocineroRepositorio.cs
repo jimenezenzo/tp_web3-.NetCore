@@ -14,13 +14,13 @@ namespace Servicios.Repositorios
         {
             _db = db;
         }
-        public EventoCocineroViewModel ObtenerDetalleDeEventoConCocinero(int idEvento)
+        public EventoCocinero ObtenerDetalleDeEventoConCocinero(int idEvento)
         {
             var query = from evento in _db.Eventos
                         join calificacion in _db.Calificaciones on evento.IdEvento equals calificacion.IdEvento
                         join cocinero in _db.Usuarios on evento.IdCocinero equals cocinero.IdUsuario
                         where evento.IdEvento == idEvento
-                        select new EventoCocineroViewModel
+                        select new EventoCocinero
                         {
                             IdEvento = evento.IdEvento,
                             IdCocinero = cocinero.IdUsuario,

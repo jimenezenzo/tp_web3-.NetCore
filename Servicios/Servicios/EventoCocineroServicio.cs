@@ -17,7 +17,7 @@ namespace Servicios.Servicios
             _eventoCocineroRepositorio = eventoCocineroRepositorio;
         }
 
-        public EventoCocineroViewModel ObtenerDetalleDeEventoConCocinero(int idEvento)
+        public EventoCocinero ObtenerDetalleDeEventoConCocinero(int idEvento)
         {
             return _eventoCocineroRepositorio.ObtenerDetalleDeEventoConCocinero(idEvento);
         }
