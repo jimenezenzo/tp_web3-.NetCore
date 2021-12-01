@@ -65,7 +65,7 @@ namespace _20212C_TP.Controllers
                 if(eventoModel.Foto != null)
                 {
                     string ficherosImagenes = Path.Combine("wwwroot/assets/img/evento");
-                    guidImagen = Guid.NewGuid().ToString() + eventoModel.Foto.FileName;
+                    guidImagen = Guid.NewGuid().ToString("N").Substring(0, 5) + eventoModel.Foto.FileName;
                     string rutaDefinitiva = Path.Combine(ficherosImagenes, guidImagen);
                     eventoModel.Foto.CopyTo(new FileStream(rutaDefinitiva, FileMode.Create));
                 }
